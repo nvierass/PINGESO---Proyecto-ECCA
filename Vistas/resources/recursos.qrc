@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="imagenes">
+    <file>assets/Image.png</file>
+    <file>assets/logo-diinf.PNG</file>
+  </qresource>
+</RCC>

@@ -10,7 +10,7 @@ class VistaEstimacion(QDialog):
         uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/estimar.ui"), self)       
 
         self.button_cancel.clicked.connect(controladorEstimacion.volverContextoPrincipal)
-        self.button_ok.clicked.connect(controladorEstimacion.realizarEstimacion)
+        self.button_ok.clicked.connect(controladorEstimacion.inicializarEstimacion)
 
     def setErrorAno(self,texto):
         self.label_error_ano.setText(texto)
@@ -25,8 +25,7 @@ class VistaEstimacion(QDialog):
         self.label_error_tipo_estimacion.setText(texto)
 
     def setErrorPonderaciones(self,texto):
-        #self.label_error_ponderaciones.setText(texto)
-        aux = 0
+        self.label_error_datos_historicos.setText(texto)
 
     def getAno(self):
         return self.input_ano.text()
@@ -48,10 +47,10 @@ class VistaEstimacion(QDialog):
         return tipoEstimacion
 
     def getPonderacionValoresHistoricos(self):
-        return "50" #self.input_ponderacion_historico.text()
+        return self.input_datos_historicos.text()
 
     def getPonderacionValoresPeriodoAnterior(self):
-        return "50" #self.input_ponderacion_periodo_anterior.text()
+        return self.input_datos_periodo_anterior.text()
         
 
     def mostrarAlerta(self,titulo,texto):

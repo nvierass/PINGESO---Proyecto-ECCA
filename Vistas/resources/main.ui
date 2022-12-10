@@ -32,6 +32,10 @@
 
 QGridLayout {
 	background-color: rgba(0,0,0,0);
+}
+
+.QScrollArea {
+	background-color: rgba(0,0,0,0);
 }</string>
   </property>
   <property name="tabShape">
@@ -208,7 +212,11 @@ QGridLayout {
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">.QPushButton {
+           <string notr="true">.QWidget {
+	background-color: rgba(234,32,23,0);
+}
+
+.QPushButton {
 	background: #E6E6E6;
 	border-radius: 15px;
 }

@@ -202,7 +202,7 @@ background: linear-gradient(to right, #fbf2e5, #dd8a25); /* W3C, IE 10+/ Edge, F
          <number>0</number>
         </property>
         <property name="columnCount">
-         <number>9</number>
+         <number>8</number>
         </property>
         <attribute name="horizontalHeaderVisible">
          <bool>true</bool>
@@ -240,32 +240,27 @@ background: linear-gradient(to right, #fbf2e5, #dd8a25); /* W3C, IE 10+/ Edge, F
         </column>
         <column>
          <property name="text">
-          <string>Tipo</string>
+          <string>Alumnos Teoría</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>Nivel</string>
+          <string>Alumnos Laboratorio</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>Cant. de Alumnos (Teo)</string>
+          <string>Coordinaciones Teoría</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>Cant. de Alumnos (Lab)</string>
+          <string>Coordinaciones Laboratorio</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>Cant. de Coordinaciones (Teo)</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Cant. de Coordinaciones (Lab)</string>
+          <string>Observaciones</string>
          </property>
         </column>
         <column>

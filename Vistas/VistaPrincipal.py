@@ -1,5 +1,5 @@
 import os
-from PyQt5 import uic, QtWidgets
+from PyQt5 import uic, QtWidgets, QtCore
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from functools import partial
 
@@ -36,21 +36,10 @@ class VistaPrincipal(QMainWindow):
             version = planesRegistrados[index].getVersion() 
             self.boton = QtWidgets.QPushButton()
             self.boton.setObjectName("plan_"+str(id))
-            self.gridLayout.addWidget(self.boton, columna, fila)
+            self.boton.setMinimumSize(QtCore.QSize(0, 100))
+            self.boton.setMaximumSize(QtCore.QSize(16777215, 60)) 
+            self.gridLayout.addWidget(self.boton, fila, columna) 
             self.boton.setText(nombre+"\n"+version)
             self.boton.clicked.connect(partial(self.controladorPrincipal.goMallaInteractiva,planesRegistrados[index], self.ano, self.periodo))
             columna = columna + 1
-""" 
 
-
-        for index in planesRegistrados:
-            plan = planesRegistrados[index]
-            referenciaBotonPlan = self.agregarBotonPlan(plan)
-            self.controladorPrincipal 
-
-            
-    def agregarBotonPlan(self,plan):
-
-        self.button_name.clicked.connect()
-"""
-        

@@ -30,7 +30,7 @@
     <rect>
      <x>50</x>
      <y>40</y>
-     <width>681</width>
+     <width>881</width>
      <height>401</height>
     </rect>
    </property>
@@ -49,7 +49,7 @@
      <rect>
       <x>40</x>
       <y>20</y>
-      <width>221</width>
+      <width>281</width>
       <height>31</height>
      </rect>
     </property>
@@ -60,7 +60,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Estimar Plan de Estudio</string>
+     <string>Parámetros de estimación</string>
     </property>
    </widget>
    <widget class="QPushButton" name="button_ok">
@@ -134,30 +134,47 @@ border-radius: 15px;
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>170</y>
-      <width>281</width>
-      <height>51</height>
+      <y>60</y>
+      <width>401</width>
+      <height>87</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_periodo">
-       <property name="text">
-        <string>Período a Estimar</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
+     <item row="1" column="1">
       <widget class="QRadioButton" name="radioButton_1">
        <property name="text">
         <string>Primer Semestre</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_periodo">
+       <property name="text">
+        <string>Período a Estimar:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
       <widget class="QRadioButton" name="radioButton_2">
        <property name="text">
         <string>Segundo Semestre</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="input_ano">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_ano">
+       <property name="text">
+        <string>Año a Estimar:</string>
        </property>
       </widget>
      </item>
@@ -167,9 +184,9 @@ border-radius: 15px;
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>230</y>
-      <width>281</width>
-      <height>51</height>
+      <y>150</y>
+      <width>401</width>
+      <height>94</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
@@ -180,17 +197,51 @@ border-radius: 15px;
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QRadioButton" name="radioButton_4">
-       <property name="text">
-        <string>Estimación Final</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QRadioButton" name="radioButton_3">
        <property name="text">
-        <string>Estimación A Priori</string>
+        <string>Priori (Mediados de semestre)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QRadioButton" name="radioButton_4">
+       <property name="text">
+        <string>Posteriori (Fin de semestre)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="input_datos_historicos">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="input_datos_periodo_anterior">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_datos_historicos">
+       <property name="text">
+        <string>Ponderación datos históricos (%):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_datos_periodo_anterior">
+       <property name="text">
+        <string>Ponderación datos período anterior (%):</string>
        </property>
       </widget>
      </item>
@@ -199,10 +250,10 @@ border-radius: 15px;
    <widget class="QLabel" name="label_error_ano">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>127</y>
-      <width>341</width>
-      <height>20</height>
+      <x>450</x>
+      <y>60</y>
+      <width>441</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -215,10 +266,10 @@ border-radius: 15px;
    <widget class="QLabel" name="label_error_periodo">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>185</y>
-      <width>341</width>
-      <height>20</height>
+      <x>450</x>
+      <y>90</y>
+      <width>461</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -231,8 +282,40 @@ border-radius: 15px;
    <widget class="QLabel" name="label_error_tipo_estimacion">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>245</y>
+      <x>450</x>
+      <y>150</y>
+      <width>441</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #B00020;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_error_datos_historicos">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>200</y>
+      <width>461</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #B00020;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_error_datos_periodo_anterior">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>220</y>
       <width>341</width>
       <height>20</height>
      </rect>
@@ -243,82 +326,6 @@ border-radius: 15px;
     <property name="text">
      <string/>
     </property>
-   </widget>
-   <widget class="QLabel" name="label_error_plan">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>77</y>
-      <width>341</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #B00020;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>60</y>
-      <width>281</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetMinAndMaxSize</enum>
-     </property>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_ano">
-       <property name="text">
-        <string>Año a Estimar:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QRadioButton" name="radioButton_7">
-       <property name="text">
-        <string>Civil 2019</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="input_ano">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QRadioButton" name="radioButton_6">
-       <property name="text">
-        <string>Civil 2014</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_archivo">
-       <property name="text">
-        <string>Plan:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QRadioButton" name="radioButton_5">
-       <property name="text">
-        <string>Ejecución 2014</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
   </widget>
  </widget>

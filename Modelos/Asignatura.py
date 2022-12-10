@@ -75,4 +75,12 @@ class Asignatura():
     def agregarAsignaturaEquivalente(self, codigoAsignaturaEquivalente):
         self.asignaturasEquivalentes.append(codigoAsignaturaEquivalente)
 
+    def getCodigosRequisitos(self):
+        codigos = []
+        for nivel in self.asignaturasRequisitos:
+            requisitosNivel = self.asignaturasRequisitos[nivel]
+            for requisito in requisitosNivel:
+                codigos.append(requisito)
+        return codigos
+
     

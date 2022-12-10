@@ -22,7 +22,7 @@ class ControladorLecturaPlanilla():
         self.controladorPrincipal.mostrarVistaPrincipal()
 
     def ingresarPlanilla(self):
-        print("Inicio guardado")
+        
 
 
 

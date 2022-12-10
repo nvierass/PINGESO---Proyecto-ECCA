@@ -22,10 +22,10 @@ class Asignatura():
         return self.tipoAsignatura
 
     def getAsignaturasRequisitos(self):
-        return self.asignaturasRequisitos
+        return self.asignaturasRequisitos.copy()
 
     def getAsignaturasEquivalentes(self):
-        return self.asignaturasEquivalentes
+        return self.asignaturasEquivalentes.copy()
 
     def getEstadisticasAsignatura(self):
         return self.estadisticasAsignatura
@@ -49,10 +49,10 @@ class Asignatura():
         self.tipoAsignatura = tipoAsignatura
 
     def setAsignaturasRequisitos(self, asignaturasRequisitos):
-        self.asignaturasRequisitos = asignaturasRequisitos
+        self.asignaturasRequisitos = asignaturasRequisitos.copy()
 
     def setAsignaturasEquivalentes(self, asignaturasEquivalentes):
-        self.asignaturasEquivalentes = asignaturasEquivalentes
+        self.asignaturasEquivalentes = asignaturasEquivalentes.copy()
 
     def setEstadisticasAsignatura(self, estadisticasAsignatura):
         self.estadisticasAsignatura = estadisticasAsignatura

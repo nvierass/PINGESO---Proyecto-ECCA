@@ -33,15 +33,16 @@ class VistaResultados(QMainWindow):
         indexFila = 0
         self.tableWidget.setRowCount(len(resultados))
         for codigoAsignatura in resultados:
-            resultado = resultados[codigoAsignatura]
-            self.tableWidget.setItem(indexFila, 0, QtWidgets.QTableWidgetItem(str(resultado["codigo"])))
-            self.tableWidget.setItem(indexFila, 1, QtWidgets.QTableWidgetItem(resultado["nombre"]))
-            self.tableWidget.setItem(indexFila, 2, QtWidgets.QTableWidgetItem(str(resultado["estimadosTeoria"])))
-            self.tableWidget.setItem(indexFila, 3, QtWidgets.QTableWidgetItem(str(resultado["estimadosLaboratorio"])))
-            self.tableWidget.setItem(indexFila, 4, QtWidgets.QTableWidgetItem(str(resultado["coordinacionesTeoria"])))
-            self.tableWidget.setItem(indexFila, 5, QtWidgets.QTableWidgetItem(str(resultado["coordinacionesLaboratorio"])))
-            self.tableWidget.setItem(indexFila, 6, QtWidgets.QTableWidgetItem(resultado["observaciones"]))
-            indexFila += 1
+            if not self.controladorEstimacion.perteneceMBI(codigoAsignatura):
+                resultado = resultados[codigoAsignatura]
+                self.tableWidget.setItem(indexFila, 0, QtWidgets.QTableWidgetItem(str(resultado["codigo"])))
+                self.tableWidget.setItem(indexFila, 1, QtWidgets.QTableWidgetItem(resultado["nombre"]))
+                self.tableWidget.setItem(indexFila, 2, QtWidgets.QTableWidgetItem(str(resultado["estimadosTeoria"])))
+                self.tableWidget.setItem(indexFila, 3, QtWidgets.QTableWidgetItem(str(resultado["estimadosLaboratorio"])))
+                self.tableWidget.setItem(indexFila, 4, QtWidgets.QTableWidgetItem(str(resultado["coordinacionesTeoria"])))
+                self.tableWidget.setItem(indexFila, 5, QtWidgets.QTableWidgetItem(str(resultado["coordinacionesLaboratorio"])))
+                self.tableWidget.setItem(indexFila, 6, QtWidgets.QTableWidgetItem(resultado["observaciones"]))
+                indexFila += 1
         
 
     def setTitulo(self, titulo):

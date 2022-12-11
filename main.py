@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication
+from Vistas.resources.recursos import *
 
 from Controladores.ControladorPrincipal import ControladorPrincipal
 

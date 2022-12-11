@@ -37,6 +37,3 @@ class Plan():
 
     def agregarAsignatura(self, codigoAsignatura, nivelAsignatura):
         self.asignaturas[nivelAsignatura].append(codigoAsignatura)
-
-
-                

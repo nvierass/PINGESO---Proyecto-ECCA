@@ -24,16 +24,16 @@ class VistaLecturaPlanilla(QDialog):
         if fname:
             self.input_archivo.setText(fname[0])
 
-    def getAnoEstimacion(self):
+    def getAno(self):
         return self.input_ano.text()
 
-    def getPeriodoEstimacion(self):
-        periodoSeleccionado = 0
+    def getSemestre(self):
+        semestre = 0
         if self.radioButton_1.isChecked():
-            periodoSeleccionado = 1
+            semestre = 1
         if self.radioButton_2.isChecked():
-            periodoSeleccionado = 2
-        return periodoSeleccionado
+            semestre = 2
+        return semestre
 
     def getNombreArchivo(self):
         return self.input_archivo.text()

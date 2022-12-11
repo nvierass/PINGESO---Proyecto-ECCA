@@ -14,6 +14,7 @@ class ControladorPrincipal():
     def __init__(self, GUI):
         self.GUI = GUI
         self.databaseContext = DatabaseContext()
+        self.vistaPrincipal = VistaPrincipal(self)
         if self.databaseContext.conn == None:
             self.vistaPrincipal.mostrarAlerta("Error","No se ha establecido una conexión a la base de datos.\nFinalizando ejecución.")
             sys.exit()
@@ -21,7 +22,6 @@ class ControladorPrincipal():
 
     def iniciarVistaPrincipal(self):
         planesRegistrados = self.databaseContext.obtenerPlanes()
-        self.vistaPrincipal = VistaPrincipal(self)
         self.vistaPrincipal.setPlanesRegitrados(planesRegistrados)
         self.GUI.addWidget(self.vistaPrincipal)
         self.GUI.show()
@@ -29,7 +29,6 @@ class ControladorPrincipal():
     def mostrarVistaPrincipal(self):
         self.GUI.addWidget(self.vistaPrincipal)
         self.GUI.setCurrentIndex(self.GUI.currentIndex()+1)
-
 
     def goRegistroPlan(self):
         self.controladorRegistroPlan  = ControladorRegistroPlan(self, self.databaseContext, self.GUI)

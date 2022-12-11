@@ -95,31 +95,53 @@ class ControladorEstimacion():
         guardadoExitoso = self.generarReporte(nombreArchivoSalida)
         if not guardadoExitoso:
             self.vistaResultados.mostrarAlerta("Error","No se ha logrado exportar los resultados.")
-        
+
     def generarReporte(self, nombre):
         try:
             workbook = xl.Workbook(nombre)
             worksheet = workbook.add_worksheet()
-            columnas = ["Código","Nombre Asignatura","Estimados Alumnos Cátedra","Estimados Alumnos Laboratorio","Estimados Coordinaciones Cátedra","Estimados Coordinaciones Laboratorio","Observaciones"]
+            columnas = ["Código","Nombre Asignatura","Alumnos estimados teoría","Alumnos estimados laboratorio","Coordinaciones estimadas teoría","Coordinaciones estimadas laboratorio","Observaciones"]
+            formatoHeader = workbook.add_format(
+                {
+                    "bg_color": "#95B3D7",
+                    "border": 1,
+                    "align": "center",
+                    "bold": True
+                }
+            )
+            formatoFila = workbook.add_format(
+                {
+                    "bg_color": "#D9D9D9",
+                    "align": "center",
+                    "border": 1
+                }
+            )
+            worksheet.set_column(0, 0, 15)
+            worksheet.set_column(1, 1, 70)
+            worksheet.set_column(2, 2, 30)
+            worksheet.set_column(3, 3, 30)
+            worksheet.set_column(4, 4, 35)
+            worksheet.set_column(5, 5, 35)
+            worksheet.set_column(6, 6, 100)
             column = 0
             for columna in columnas:
-                worksheet.write(0,column,columna)
+                worksheet.write(0,column,columna,formatoHeader)
                 column = column + 1
             row = 1
             for codigoAsignatura in self.resultadosEstimacion:
-                worksheet.write(row,0,self.resultadosEstimacion[codigoAsignatura]["codigo"])
-                worksheet.write(row,1,self.resultadosEstimacion[codigoAsignatura]["nombre"])
-                worksheet.write(row,2,self.resultadosEstimacion[codigoAsignatura]["estimadosTeoria"])
-                worksheet.write(row,3,self.resultadosEstimacion[codigoAsignatura]["estimadosLaboratorio"])
-                worksheet.write(row,4,self.resultadosEstimacion[codigoAsignatura]["coordinacionesTeoria"])
-                worksheet.write(row,5,self.resultadosEstimacion[codigoAsignatura]["coordinacionesLaboratorio"])
-                worksheet.write(row,6,self.resultadosEstimacion[codigoAsignatura]["observaciones"])
+                worksheet.write(row,0,self.resultadosEstimacion[codigoAsignatura]["codigo"],formatoFila)
+                worksheet.write(row,1,self.resultadosEstimacion[codigoAsignatura]["nombre"],formatoFila)
+                worksheet.write(row,2,self.resultadosEstimacion[codigoAsignatura]["estimadosTeoria"],formatoFila)
+                worksheet.write(row,3,self.resultadosEstimacion[codigoAsignatura]["estimadosLaboratorio"],formatoFila)
+                worksheet.write(row,4,self.resultadosEstimacion[codigoAsignatura]["coordinacionesTeoria"],formatoFila)
+                worksheet.write(row,5,self.resultadosEstimacion[codigoAsignatura]["coordinacionesLaboratorio"],formatoFila)
+                worksheet.write(row,6,self.resultadosEstimacion[codigoAsignatura]["observaciones"],formatoFila)
                 row += 1
             workbook.close()
             return True
         except:
             return False
-        
+
     def inicializarEstimacion(self):
         ano = self.vistaEstimacion.getAno()
         semestre = self.vistaEstimacion.getPeriodo()
@@ -195,7 +217,7 @@ class ControladorEstimacion():
                 "estimadosLaboratorio": 0,
                 "coordinacionesTeoria": 0,
                 "coordinacionesLaboratorio": 0,
-                "observaciones": "Estimación no realizada, asignatura pertenece al modulo básico de ingenieria."
+                "observaciones": "Estimación no realizada, asignatura pertenece al módulo básico de ingeniería."
                 } 
             return resultado    
         if self.perteneceMBI(requisitoPrioritario):
@@ -285,7 +307,7 @@ class ControladorEstimacion():
                 "estimadosLaboratorio": 0,
                 "coordinacionesTeoria": 0,
                 "coordinacionesLaboratorio": 0,
-                "observaciones": "Estimación no realizada, asignatura pertenece al modulo básico de ingenieria."
+                "observaciones": "Estimación no realizada, asignatura pertenece al módulo básico de ingeniería."
                 } 
             return resultado    
         if self.perteneceMBI(requisitoPrioritario):

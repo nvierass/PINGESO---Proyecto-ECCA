@@ -159,7 +159,7 @@ QGridLayout {
          </property>
          <property name="minimumSize">
           <size>
-           <width>110</width>
+           <width>130</width>
            <height>20</height>
           </size>
          </property>
@@ -179,7 +179,7 @@ QGridLayout {
 }</string>
          </property>
          <property name="text">
-          <string>Actualizar plan actual</string>
+          <string>Actualizar período actual</string>
          </property>
         </widget>
        </item>

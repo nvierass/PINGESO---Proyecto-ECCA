@@ -2,6 +2,7 @@ import os
 from PyQt5 import uic, QtWidgets, QtCore
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from functools import partial
+from Vistas.resources.recursos import *
 
 class VistaPrincipal(QMainWindow):
   

@@ -360,7 +360,7 @@ QGridLayout {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="button_registrar_2">
+           <widget class="QPushButton" name="button_gestion_estadisticas">
             <property name="minimumSize">
              <size>
               <width>260</width>

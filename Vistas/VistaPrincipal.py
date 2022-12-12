@@ -15,6 +15,7 @@ class VistaPrincipal(QMainWindow):
         self.button_cargar.clicked.connect(self.controladorPrincipal.goLecturaPlanilla)
         self.button_estimar.clicked.connect(self.controladorPrincipal.goEstimacion)
         self.button_actualizar_periodo.clicked.connect(self.controladorPrincipal.goActualizacion)
+        self.button_gestion_estadisticas.clicked.connect(self.controladorPrincipal.goGestionEstadisticas)
         self.ano = 0
         self.periodo = 0
 
@@ -41,7 +42,7 @@ class VistaPrincipal(QMainWindow):
             self.boton.setMaximumSize(QtCore.QSize(16777215, 60)) 
             self.gridLayout.addWidget(self.boton, fila, columna) 
             self.boton.setText(nombre+"\n"+version)
-            self.boton.clicked.connect(partial(self.controladorPrincipal.goMallaInteractiva,planesRegistrados[index], self.ano, self.periodo))
+            self.boton.clicked.connect(partial(self.controladorPrincipal.goMallaInteractiva,planesRegistrados[index]))
             columna = columna + 1
 
     def setAno(self, ano):

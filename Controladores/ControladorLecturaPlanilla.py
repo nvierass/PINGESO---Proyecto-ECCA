@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets
 import pandas as pd
 import math
 import re
+import sys
 
 from Vistas.VistaLecturaPlanilla import VistaLecturaPlanilla
 from Modelos.EstadisticaAsignatura import EstadisticaAsignatura
@@ -70,15 +71,15 @@ class ControladorLecturaPlanilla():
         for codigo in estadisticasArchivo:
             if codigo in self.datosExistentesPeriodo:
                 estadisticaExistente = EstadisticaAsignatura(self.ano, self.semestre, codigo)
-                estadisticaExistente.setInscritosTeoria(datosExistentesPeriodo[codigo]["inscritosTeoria"])
-                estadisticaExistente.setAprobadosTeoria(datosExistentesPeriodo[codigo]["aprobadosTeoria"])
-                estadisticaExistente.setReprobadosTeoria(datosExistentesPeriodo[codigo]["reprobadosTeoria"])
-                estadisticaExistente.setInscritosLaboratorio(datosExistentesPeriodo[codigo]["inscritosLaboratorio"])
-                estadisticaExistente.setAprobadosLaboratorio(datosExistentesPeriodo[codigo]["aprobadosLaboratorio"])
-                estadisticaExistente.setReprobadosLaboratorio(datosExistentesPeriodo[codigo]["reprobadosLaboratorio"])
-                estadisticaExistente.setTasaAprobacionTeoria(datosExistentesPeriodo[codigo]["tasaAprobacionTeoria"])
-                estadisticaExistente.setTasaAprobacionLaboratorio(datosExistentesPeriodo[codigo]["tasaAprobacionLaboratorio"])
-                estadisticaExistente.setTasaDesinscripcion(datosExistentesPeriodo[codigo]["tasaDesinscripcion"])
+                estadisticaExistente.setInscritosTeoria(self.datosExistentesPeriodo[codigo]["inscritosTeoria"])
+                estadisticaExistente.setAprobadosTeoria(self.datosExistentesPeriodo[codigo]["aprobadosTeoria"])
+                estadisticaExistente.setReprobadosTeoria(self.datosExistentesPeriodo[codigo]["reprobadosTeoria"])
+                estadisticaExistente.setInscritosLaboratorio(self.datosExistentesPeriodo[codigo]["inscritosLaboratorio"])
+                estadisticaExistente.setAprobadosLaboratorio(self.datosExistentesPeriodo[codigo]["aprobadosLaboratorio"])
+                estadisticaExistente.setReprobadosLaboratorio(self.datosExistentesPeriodo[codigo]["reprobadosLaboratorio"])
+                estadisticaExistente.setTasaAprobacionTeoria(self.datosExistentesPeriodo[codigo]["tasaAprobacionTeoria"])
+                estadisticaExistente.setTasaAprobacionLaboratorio(self.datosExistentesPeriodo[codigo]["tasaAprobacionLaboratorio"])
+                estadisticaExistente.setTasaDesinscripcion(self.datosExistentesPeriodo[codigo]["tasaDesinscripcion"])
                 estadisticaComplementada = self.complementarEstadisticas(estadisticaExistente, estadisticasArchivo[codigo])
                 estadisticasArchivo[codigo] = estadisticaComplementada
         return estadisticasArchivo

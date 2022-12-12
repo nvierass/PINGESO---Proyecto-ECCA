@@ -83,4 +83,5 @@ class Asignatura():
                 codigos.append(requisito)
         return codigos
 
-    
+    def getCantidadRequisitos(self):
+        return len(self.getCodigosRequisitos())

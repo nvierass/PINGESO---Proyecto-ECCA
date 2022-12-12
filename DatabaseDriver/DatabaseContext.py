@@ -258,7 +258,6 @@ class DatabaseContext():
                                              }
             return diccionario
 
-
     def obtenerAsignaturas(self):
         if self.conn == None:
             return None

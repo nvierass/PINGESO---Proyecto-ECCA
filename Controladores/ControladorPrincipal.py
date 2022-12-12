@@ -8,6 +8,7 @@ from Controladores.ControladorRegistroPlan import ControladorRegistroPlan
 from Controladores.ControladorLecturaPlanilla import ControladorLecturaPlanilla
 from Controladores.ControladorEstimacion import ControladorEstimacion
 from Controladores.ControladorMallaInteractiva import ControladorMallaInteractiva
+from Controladores.ControladorGestionEstadisticas import ControladorGestionEstadisticas
 from DatabaseDriver.DatabaseContext import DatabaseContext
 
 class ControladorPrincipal():
@@ -44,15 +45,18 @@ class ControladorPrincipal():
         self.controladorLecturaPlanilla = ControladorLecturaPlanilla(self, self.databaseContext, self.GUI)
 
     def goEstimacion(self):
-        self.controladorEstimacion = ControladorEstimacion(self, self.databaseContext, self.GUI)
+        self.controladorEstimacion = ControladorEstimacion(self, self.databaseContext, self.GUI, False)
 
     def goActualizacion(self):
         self.vistaActualizarPeriodo = VistaActualizarPeriodo(self)
         self.GUI.addWidget(self.vistaActualizarPeriodo)
         self.GUI.setCurrentIndex(self.GUI.currentIndex()+1)
 
-    def goMallaInteractiva(self, PlanSeleccionado, ano, periodo):
-        self.controladorMallaInteractiva = ControladorMallaInteractiva(self.databaseContext, self.GUI, PlanSeleccionado,ano,periodo)
+    def goMallaInteractiva(self, PlanSeleccionado,):
+        self.controladorMallaInteractiva = ControladorMallaInteractiva(self, self.databaseContext, self.GUI, PlanSeleccionado,self.ano, self.semestre)
+
+    def goGestionEstadisticas(self):
+        self.controladorGestionEstadisticas = ControladorGestionEstadisticas(self, self.databaseContext, self.GUI)
 
     def actualizarPeriodo(self):
         self.vistaActualizarPeriodo.setErrorPeriodo("")

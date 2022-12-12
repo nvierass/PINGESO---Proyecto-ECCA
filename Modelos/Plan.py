@@ -23,6 +23,9 @@ class Plan():
     def getAsignaturas(self):
         return self.asignaturas
 
+    def getDuracion(self):
+        return self.duracion
+
     def setId(self, id):
         self.id = id
 
@@ -31,6 +34,9 @@ class Plan():
 
     def setVersion(self, version):
         self.version = version
+
+    def setDuracion(self, duracion):
+        self.duracion = duracion
     
     def setAsignaturas(self, asignaturas):
         self.asignaturas = asignaturas

@@ -8,20 +8,20 @@ from Vistas.VistaResultados import VistaResultados
 
 class ControladorEstimacion():
 
-    def __init__(self, controladorPrincipal, databaseContext, GUI):
-        self.GUI = GUI
-        self.databaseContext = databaseContext
-        self.controladorPrincipal = controladorPrincipal
-        self.vistaEstimacion = VistaEstimacion(self)
-        self.vistaCupos = VistaCupos(self)
-        self.vistaResultados = VistaResultados(self)
-        self.mostrarVistaEstimacion()
-
-        self.asignaturas = self.databaseContext.obtenerAsignaturas()
-        if self.asignaturas == None:
-            self.vistaEstimacion.mostrarAlerta("Error", "Error en la conexión a la base de datos, el programa terminará su ejecución inmediatamente.")
-            sys.exit()
-        self.resultadosEstimacion = {}
+    def __init__(self, controladorPrincipal, databaseContext, GUI, flagInteractiva):
+        if not flagInteractiva:
+            self.GUI = GUI
+            self.databaseContext = databaseContext
+            self.controladorPrincipal = controladorPrincipal
+            self.vistaEstimacion = VistaEstimacion(self)
+            self.vistaCupos = VistaCupos(self)
+            self.vistaResultados = VistaResultados(self)
+            self.mostrarVistaEstimacion()
+            self.asignaturas = self.databaseContext.obtenerAsignaturas()
+            if self.asignaturas == None:
+                self.vistaEstimacion.mostrarAlerta("Error", "Error en la conexión a la base de datos, el programa terminará su ejecución inmediatamente.")
+                sys.exit()
+            self.resultadosEstimacion = {}
 
     def definirRequisitoPrioritario(self, codigo, asignatura, datosPeriodoAnterior, datosHistoricos):
         requisitoEncontrado, requisito = self.aplicarCriterioPrioritarioNivel(codigo)
@@ -129,14 +129,15 @@ class ControladorEstimacion():
                 column = column + 1
             row = 1
             for codigoAsignatura in self.resultadosEstimacion:
-                worksheet.write(row,0,self.resultadosEstimacion[codigoAsignatura]["codigo"],formatoFila)
-                worksheet.write(row,1,self.resultadosEstimacion[codigoAsignatura]["nombre"],formatoFila)
-                worksheet.write(row,2,self.resultadosEstimacion[codigoAsignatura]["estimadosTeoria"],formatoFila)
-                worksheet.write(row,3,self.resultadosEstimacion[codigoAsignatura]["estimadosLaboratorio"],formatoFila)
-                worksheet.write(row,4,self.resultadosEstimacion[codigoAsignatura]["coordinacionesTeoria"],formatoFila)
-                worksheet.write(row,5,self.resultadosEstimacion[codigoAsignatura]["coordinacionesLaboratorio"],formatoFila)
-                worksheet.write(row,6,self.resultadosEstimacion[codigoAsignatura]["observaciones"],formatoFila)
-                row += 1
+                if not self.perteneceMBI(codigoAsignatura):
+                    worksheet.write(row,0,self.resultadosEstimacion[codigoAsignatura]["codigo"],formatoFila)
+                    worksheet.write(row,1,self.resultadosEstimacion[codigoAsignatura]["nombre"],formatoFila)
+                    worksheet.write(row,2,self.resultadosEstimacion[codigoAsignatura]["estimadosTeoria"],formatoFila)
+                    worksheet.write(row,3,self.resultadosEstimacion[codigoAsignatura]["estimadosLaboratorio"],formatoFila)
+                    worksheet.write(row,4,self.resultadosEstimacion[codigoAsignatura]["coordinacionesTeoria"],formatoFila)
+                    worksheet.write(row,5,self.resultadosEstimacion[codigoAsignatura]["coordinacionesLaboratorio"],formatoFila)
+                    worksheet.write(row,6,self.resultadosEstimacion[codigoAsignatura]["observaciones"],formatoFila)
+                    row += 1
             workbook.close()
             return True
         except:
@@ -340,7 +341,29 @@ class ControladorEstimacion():
                 "estimadosLaboratorio": 0,
                 "coordinacionesTeoria": 0,
                 "coordinacionesLaboratorio": 0,
-                "observaciones": "Estimación no realizada, faltan estadísticas curriculares de los requisitos para estimar esta asignatura."
+                "observaciones": "Estimación no realizada, faltan estadísticas curriculares para estimar esta asignatura."
+                } 
+            return resultado
+        if ("aprobadosTeoria" not in datosPeriodoAnterior[codigoAsignatura]) or ("aprobadosLaboratorio" not in datosPeriodoAnterior[codigoAsignatura]):
+            resultado = {
+                "codigo": codigoAsignatura,
+                "nombre": nombreAsignatura,
+                "estimadosTeoria": 0,
+                "estimadosLaboratorio": 0,
+                "coordinacionesTeoria": 0,
+                "coordinacionesLaboratorio": 0,
+                "observaciones": "Estimación no realizada, faltan estadísticas curriculares de aprobación para estimar esta asignatura."
+                } 
+            return resultado
+        if ("aprobadosTeoria" not in datosPeriodoAnterior[requisitoPrioritario]) or ("aprobadosLaboratorio" not in datosPeriodoAnterior[requisitoPrioritario]):
+            resultado = {
+                "codigo": codigoAsignatura,
+                "nombre": nombreAsignatura,
+                "estimadosTeoria": 0,
+                "estimadosLaboratorio": 0,
+                "coordinacionesTeoria": 0,
+                "coordinacionesLaboratorio": 0,
+                "observaciones": "Estimación no realizada, faltan estadísticas curriculares de aprobación de los requisitos para estimar esta asignatura."
                 } 
             return resultado
 
@@ -350,7 +373,7 @@ class ControladorEstimacion():
         alumnosAprobadosTeoriaRequisito = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "aprobadosTeoria")
 
         alumnosReprobadosAsignaturaLaboratorio = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "reprobadosLaboratorio")
-        alumnosAprobadosLaboratorioRequisito = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "aprobadosTeoria")
+        alumnosAprobadosLaboratorioRequisito = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "aprobadosLaboratorio")
 
         estimadosTeoria = math.ceil(alumnosDisponiblesInscripcion + alumnosReprobadosAsignaturaTeoria + alumnosAprobadosTeoriaRequisito)
         estimadosLaboratorio = math.ceil(alumnosDisponiblesInscripcion + alumnosReprobadosAsignaturaLaboratorio + alumnosAprobadosLaboratorioRequisito)
@@ -479,7 +502,7 @@ class ControladorEstimacion():
     def perteneceMBI(self, codigo):
         if codigo == None:
             return False
-        codigosMBI = [13300, 13302, 13303, 13305, 13307]
+        codigosMBI = [13300, 13303, 13305, 13307]
         if codigo < 13000:
             return True
         if codigo in codigosMBI:

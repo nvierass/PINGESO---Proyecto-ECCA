@@ -1,9 +1,9 @@
 import os
 from PyQt5 import uic, QtWidgets
-from PyQt5.QtWidgets import QDialog, QMainWindow, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog
 
 
-class VistaLecturaPlanilla(QDialog):
+class VistaLecturaPlanilla(QMainWindow):
 
     def __init__(self, controladorLecturaPlanilla):
         super(VistaLecturaPlanilla, self).__init__()

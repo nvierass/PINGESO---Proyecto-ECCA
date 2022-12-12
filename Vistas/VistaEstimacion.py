@@ -1,9 +1,9 @@
 import os
 from PyQt5 import uic, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 
-class VistaEstimacion(QDialog):
+class VistaEstimacion(QMainWindow):
 
     def __init__(self, controladorEstimacion):
         super(VistaEstimacion, self).__init__()

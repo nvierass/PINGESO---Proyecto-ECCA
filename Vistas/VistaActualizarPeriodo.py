@@ -1,9 +1,9 @@
 import os
 from PyQt5 import uic, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 
-class VistaActualizarPeriodo(QDialog):
+class VistaActualizarPeriodo(QMainWindow):
 
     def __init__(self, controladorPrincipal):
         super(VistaActualizarPeriodo, self).__init__()

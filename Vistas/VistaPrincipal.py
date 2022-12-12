@@ -14,15 +14,16 @@ class VistaPrincipal(QMainWindow):
         self.button_registrar.clicked.connect(self.controladorPrincipal.goRegistroPlan)
         self.button_cargar.clicked.connect(self.controladorPrincipal.goLecturaPlanilla)
         self.button_estimar.clicked.connect(self.controladorPrincipal.goEstimacion)
-
-        self.ano = 2022
-        self.periodo = 2
+        self.button_actualizar_periodo.clicked.connect(self.controladorPrincipal.goActualizacion)
+        self.ano = 0
+        self.periodo = 0
 
     def mostrarAlerta(self,titulo,texto):
         QMessageBox.information(self, titulo, texto)
-
-    def mostrarPlanesRegistrados(self):
-        aux = 0
+    
+    def actualizarTitulo(self):
+        titulo = "Periodo actual: ("+ str(self.ano) + "-" + str(self.periodo) + ")"
+        self.label_titulo.setText(titulo)
 
     def setPlanesRegitrados(self, planesRegistrados):
         fila = 0
@@ -43,3 +44,8 @@ class VistaPrincipal(QMainWindow):
             self.boton.clicked.connect(partial(self.controladorPrincipal.goMallaInteractiva,planesRegistrados[index], self.ano, self.periodo))
             columna = columna + 1
 
+    def setAno(self, ano):
+        self.ano = ano
+
+    def setSemestre(self, semestre):
+        self.periodo = semestre

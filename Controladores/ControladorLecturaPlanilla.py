@@ -34,7 +34,6 @@ class ControladorLecturaPlanilla():
             self.vistaLecturaPlanilla.mostrarAlerta("Ingreso exitoso","Se ha ingresado correctamente la información de planificación docente del periodo indicado.")
         self.volverContextoPrincipal()
 
-    
     def validarParametrosIngresoPlanilla(self, ano, semestre, nombreArchivo):
         if not self.anoValido(ano):
             self.vistaLecturaPlanilla.setErrorAno("El valor ingresado es invalido, año debe ser un valor numérico.\n(Periodos admitidos corresponden al intervalo 2015-2050).")
@@ -57,20 +56,16 @@ class ControladorLecturaPlanilla():
             self.vistaLecturaPlanilla.mostrarAlerta("Error","El archivo ingresado no cumple con el formato esperado.")
             return False
         if tipo == 1:
-            print("tipo 1")
             estadisticasArchivo = self.leerPlanillaTipo1(nombreArchivo)
             estadisticasComplementadas = self.complementarEstadisticasArchivo(estadisticasArchivo)
             self.databaseContext.ingresarEstadisticasAsignaturas(self.ano, self.semestre, estadisticasComplementadas)
             return True
         elif tipo == 2:
-            print("tipo 2")
             estadisticasArchivo = self.leerPlanillaTipo2(nombreArchivo)
             estadisticasComplementadas = self.complementarEstadisticasArchivo(estadisticasArchivo)
             self.databaseContext.ingresarEstadisticasAsignaturas(self.ano, self.semestre, estadisticasComplementadas)
             return True
         
-
-
     def complementarEstadisticasArchivo(self, estadisticasArchivo):
         for codigo in estadisticasArchivo:
             if codigo in self.datosExistentesPeriodo:
@@ -170,8 +165,6 @@ class ControladorLecturaPlanilla():
             inscritos = fila["INSCRITOS"]
             aprobados = fila["APROBADOS"]
             reprobados = fila["REPROBADOS"]
-            if codigoEjecucion == 13287:
-                print(coordinacion, inscritos, aprobados, reprobados)
             if codigoEjecucionValido:
                 estadisticas = self.agregarInscritosEstadisticas(estadisticas, codigoEjecucion, coordinacion, inscritos)
                 estadisticas = self.agregarAprobadosEstadisticas(estadisticas, codigoEjecucion, coordinacion, aprobados)
@@ -182,7 +175,6 @@ class ControladorLecturaPlanilla():
                 estadisticas = self.agregarReprobadosEstadisticas(estadisticas, codigoCivil, coordinacion, reprobados)
         for codigo in estadisticas:
             estadisticas[codigo].calcularTasas()
-        print(estadisticas[13287])
         return estadisticas
 
     def validarCodigo(self, codigo):

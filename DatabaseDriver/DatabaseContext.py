@@ -99,14 +99,14 @@ class DatabaseContext():
             else:
                 return False,None
 
-    def ingresarEstadisticasAsignaturas(self,ano,periodo,asignaturas):
+    def ingresarEstadisticasAsignaturas(self, ano, periodo, asignaturas):
         if self.conn == None:
             print("Error en la conexión a la base de datos")
         else:
+            estadisticasExistentes = self.obtenerEstadisticasPeriodo(ano, periodo)
             query = ""
             for codigo in asignaturas:
-                existe,valor = self.buscarEstadisticaAsignatura(ano,periodo,codigo)
-                if existe:
+                if codigo in estadisticasExistentes:
                     updateQuery = "UPDATE estadistica_asignatura SET " + \
                     "inscritos_teoria = " + str(asignaturas[codigo].inscritosTeoria) + \
                     ",aprobados_teoria = " + str(asignaturas[codigo].aprobadosTeoria) + \
@@ -236,7 +236,7 @@ class DatabaseContext():
                                             }
             return diccionario
 
-    def obtenerEstadisticasPeriodo(self,ano,semestre):
+    def obtenerEstadisticasPeriodo(self, ano, semestre):
         if self.conn == None:
             print("Error en la conexión a la base de datos")
         else:
@@ -290,3 +290,22 @@ class DatabaseContext():
                 codigoAsignaturaEquivalente = resultado[1]
                 asignaturas[codigoAsignatura].agregarAsignaturaEquivalente(codigoAsignaturaEquivalente)
             return asignaturas
+
+    def obtenerPlan(self, idPlan):
+        try:
+            if self.conn != None:
+                query = "SELECT nombre, version, duracion_semestres, cod_asignatura, nivel FROM plan INNER JOIN plan_asignatura ON plan.id = plan_asignatura.id_plan where plan.id = " + str(idPlan) + "ORDER BY nivel;" 
+                self.cursor.execute(query)
+                resultados = self.cursor.fetchall()
+                resultado = resultados[0]
+                nombre = resultado[0]
+                version = resultado[1]
+                duracion = resultado[2]
+                plan = Plan(idPlan, nombre, version, duracion)
+                for resultado in resultados:
+                    codigoAsignatura = resultado[3]
+                    nivelAsignatura = resultado[4]
+                    plan.agregarAsignatura(codigoAsignatura, nivelAsignatura)
+                return plan
+        except:
+            return None

@@ -13,7 +13,7 @@ class VistaLecturaPlanilla(QDialog):
 
         self.button_examinar.clicked.connect(self.examinarArchivo)
         self.button_cancel.clicked.connect(self.controladorLecturaPlanilla.volverContextoPrincipal)
-        self.button_ok.clicked.connect(self.controladorLecturaPlanilla.ingresarPlanilla)
+        self.button_ok.clicked.connect(self.controladorLecturaPlanilla.iniciarIngresoPlanilla)
 
 
     def mostrarAlerta(self,titulo,texto):

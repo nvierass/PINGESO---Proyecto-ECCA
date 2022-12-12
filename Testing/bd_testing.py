@@ -16,7 +16,7 @@ for index in rs:
         for codigo in asignaturasNivel:
             print(codigo)
             '''
-
+'''
 rs = db.obtenerAsignaturas()
 
 for codigo in rs:
@@ -27,3 +27,19 @@ for codigo in rs:
     for nivel in requisitos:
         print("\t\tNivel: ",nivel , "Requisitos: ",requisitos[nivel])
     print("\t\tEquivalentes: ", rs[codigo].getAsignaturasEquivalentes())
+
+rs = db.obtenerPlan(4)
+if rs:
+    print("Nombre:",rs.getNombre())
+    print("Version:",rs.getVersion())
+    print("ID:",rs.getId())
+    print("Niveles:",len(rs.getAsignaturas()))
+    asignaturas = rs.getAsignaturas()
+    for nivel in asignaturas:
+        print("Nivel ",nivel,":")
+        asignaturasNivel = asignaturas[nivel]
+        for codigo in asignaturasNivel:
+            print(codigo)
+else:
+    print("No existe plan")
+'''

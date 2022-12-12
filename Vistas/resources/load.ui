@@ -81,7 +81,11 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QLineEdit" name="input_archivo"/>
+      <widget class="QLineEdit" name="input_archivo">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item row="3" column="1">
       <widget class="QRadioButton" name="radioButton_2">

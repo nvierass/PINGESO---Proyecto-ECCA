@@ -14,7 +14,10 @@ class VistaMalla(QMainWindow):
         self.button_volver.clicked.connect(self.controladorMallaInteractiva.volverContextoPrincipal)
         self.button_estimar_1.clicked.connect(self.controladorMallaInteractiva.realizarEstimacionPriori)
         self.button_estimar_2.clicked.connect(self.controladorMallaInteractiva.realizarEstimacionPosteriori)
+        self.button_editar_pa.clicked.connect(self.clickBotonEditar)
+        self.button_guardar.clicked.connect(self.controladorMallaInteractiva.actualizarDatosActuales)
         self.codigoAsignaturaSeleccionada = None
+        self.codigoAsignaturaEdicion = None
         self.resultados = {}
 
     def mostrarAlerta(self,titulo,texto):
@@ -51,6 +54,8 @@ class VistaMalla(QMainWindow):
         self.table_prerrequisitos.setColumnWidth(6, 200)
         
         self.agregarBotones()
+        self.button_guardar.setVisible(False)
+        self.button_editar_pa.setVisible(False)
 
         self.seleccionado = self.button_invisible
         self.button_invisible.setVisible(False)
@@ -113,7 +118,7 @@ class VistaMalla(QMainWindow):
                 fila += 1
             columna += 1
             fila = 1
-        self.setTabOrder(self.boton, self.button_editar_pa_tai)
+        self.setTabOrder(self.boton, self.button_editar_pa)
         for x in range(0, nivelesPlan):
             self.label = QtWidgets.QLabel()
             self.Malla.addWidget(self.label, 0, x)
@@ -132,6 +137,7 @@ class VistaMalla(QMainWindow):
 
     
     def mostrarDatosAsignatura(self, codigoAsignatura, boton):
+        self.button_editar_pa.setVisible(True)
         if(codigoAsignatura == self.codigoAsignaturaSeleccionada):
             return
         if codigoAsignatura in self.resultados:
@@ -152,8 +158,7 @@ class VistaMalla(QMainWindow):
         self.codigoAsignaturaSeleccionada = int(boton.objectName())
         self.label_nombre_codigo.setText(asignatura.getNombre() + " ("+str(codigoAsignatura)+")")
 
-        self.value_ps_tce.setText(str(asignatura.getCuposTeoria()))
-        self.value_ps_lce.setText(str(asignatura.getCuposLaboratorio()))
+        
         #Datos historicos
         if codigoAsignatura in self.datosHistoricos:
             self.value_tath.setText(str(math.floor(self.datosHistoricos[codigoAsignatura]["tasaAprobacionTeoria"]*100)) + "%")
@@ -165,11 +170,13 @@ class VistaMalla(QMainWindow):
             self.value_tddh.setText("No existen datos")
         #Datos periodo actual
         if codigoAsignatura in self.datosPeriodoActual:
-            self.value_pa_tai.setText(str(self.datosPeriodoActual[codigoAsignatura]["inscritosTeoria"]))
-            self.value_pa_lai.setText(str(self.datosPeriodoActual[codigoAsignatura]["inscritosLaboratorio"]))
+            self.input_inscritosTeoria.setText(str(self.datosPeriodoActual[codigoAsignatura]["inscritosTeoria"]))
+            self.input_inscritosLaboratorio.setText(str(self.datosPeriodoActual[codigoAsignatura]["inscritosLaboratorio"]))
         else:
-            self.value_pa_tai.setText("No existen datos")
-            self.value_pa_lai.setText("No existen datos")
+            self.input_inscritosTeoria.setText("NA")
+            self.input_inscritosLaboratorio.setText("NA")
+        self.input_cuposTeoria.setText(str(asignatura.getCuposTeoria()))
+        self.input_cuposLaboratorio.setText(str(asignatura.getCuposLaboratorio()))
         #Datos ultimo periodo
         if codigoAsignatura in self.datosPeriodoAnterior:
             self.value_tatup.setText(str(math.floor(self.datosPeriodoAnterior[codigoAsignatura]["tasaAprobacionTeoria"]*100))+"%")
@@ -205,3 +212,38 @@ class VistaMalla(QMainWindow):
         self.value_ps_tci.setText(str(resultado["coordinacionesTeoria"]))
         self.value_ps_lcpc.setText(str(resultado["coordinacionesLaboratorio"]))
         self.label_observaciones.setText(resultado["observaciones"])
+
+    def getInscritosTeoria(self):
+        return self.input_inscritosTeoria.text()
+    
+    def getCuposTeoria(self):
+        return self.input_cuposTeoria.text()
+
+    def getInscritosLaboratorio(self):
+        return self.input_inscritosLaboratorio.text()
+
+    def getCuposLaboratorio(self):
+        return self.input_cuposLaboratorio.text()
+    
+    def getAsignaturaEdicion(self):
+        return self.codigoAsignaturaEdicion
+
+    def clickBotonEditar(self):
+        self.button_editar_pa.setVisible(False)
+        self.button_guardar.setVisible(True)
+        self.codigoAsignaturaEdicion = self.codigoAsignaturaSeleccionada
+        self.input_inscritosTeoria.setEnabled(True)
+        self.input_cuposTeoria.setEnabled(True)
+        self.input_inscritosLaboratorio.setEnabled(True)
+        self.input_cuposLaboratorio.setEnabled(True)
+
+
+            
+    def alternarBotones(self):
+        self.button_guardar.setVisible(False)
+        self.button_editar_pa.setVisible(True)
+        self.input_inscritosTeoria.setEnabled(False)
+        self.input_cuposTeoria.setEnabled(False)
+        self.input_inscritosLaboratorio.setEnabled(False)
+        self.input_cuposLaboratorio.setEnabled(False)
+        

@@ -44,8 +44,8 @@ class ControladorMallaInteractiva():
         asignatura = self.asignaturas[codigoAsignatura]
         controladorEstimacion = ControladorEstimacion(None, None, None, True)
         controladorEstimacion.asignaturas = self.asignaturas
-        asignatura = controladorEstimacion.definirRequisitoPrioritario( codigoAsignatura, asignatura, self.datosPeriodoAnterior, self.datosHistoricos)
-        resultado = controladorEstimacion.estimarAsignaturaPriori(asignatura, self.asignaturas, self.datosHistoricos, self.datosPeriodoAnterior, 0, 1).copy()
+        asignatura = controladorEstimacion.definirRequisitoPrioritario( codigoAsignatura, asignatura, self.datosPeriodoActual, self.datosHistoricos)
+        resultado = controladorEstimacion.estimarAsignaturaPriori(asignatura, self.asignaturas, self.datosHistoricos, self.datosPeriodoActual, 0.5, 0.5)
         self.vistaMalla.agregarResultado(codigoAsignatura, resultado)
         self.vistaMalla.mostrarResultado(resultado)
 
@@ -55,6 +55,49 @@ class ControladorMallaInteractiva():
         controladorEstimacion = ControladorEstimacion(None, None, None, True)
         controladorEstimacion.asignaturas = self.asignaturas
         asignatura = controladorEstimacion.definirRequisitoPrioritario( codigoAsignatura, asignatura, self.datosPeriodoAnterior, self.datosHistoricos)
-        resultado = controladorEstimacion.estimarAsignaturaPosteriori(asignatura, self.asignaturas, self.datosHistoricos, self.datosPeriodoAnterior).copy()
+        resultado = controladorEstimacion.estimarAsignaturaPosteriori(asignatura, self.asignaturas, self.datosHistoricos, self.datosPeriodoAnterior)
         self.vistaMalla.agregarResultado(codigoAsignatura, resultado)
         self.vistaMalla.mostrarResultado(resultado)
+
+    def actualizarDatosActuales(self):
+        codigoAsignatura = self.vistaMalla.getAsignaturaEdicion()
+        inscritosTeoria = self.vistaMalla.getInscritosTeoria()
+        cuposTeoria = self.vistaMalla.getCuposTeoria()
+        inscritosLaboratorio = self.vistaMalla.getInscritosLaboratorio()
+        cuposLaboratorio = self.vistaMalla.getCuposLaboratorio()
+        if not self.cantidadValida(inscritosTeoria, 0, 200):
+            self.vistaMalla.mostrarAlerta("Advertencia", "El valor indicado para alumnos inscritos en teoría es invalido. (Valores permitidos [0-200])")
+            return
+        if not self.cantidadValida(cuposTeoria, 5, 80):
+            self.vistaMalla.mostrarAlerta("Advertencia", "El valor indicado para coordinaciones de teoría es invalido. (Valores permitidos [5-80])")
+            return
+        if not self.cantidadValida(inscritosLaboratorio, 0, 200):
+            self.vistaMalla.mostrarAlerta("Advertencia", "El valor indicado para alumnos inscritos en laboratorio es invalido. (Valores permitidos [0-200])")
+            return
+        if not self.cantidadValida(cuposLaboratorio, 5, 80):
+            self.vistaMalla.mostrarAlerta("Advertencia", "El valor indicado para coordinaciones de laboratorio es invalido. (Valores permitidos [5-80])")
+            return
+        inscritosTeoria = int(inscritosTeoria)
+        cuposTeoria = int(cuposTeoria)
+        inscritosLaboratorio = int(inscritosLaboratorio)
+        cuposLaboratorio = int(cuposLaboratorio)
+        if codigoAsignatura in self.datosPeriodoActual:
+            self.datosPeriodoActual[codigoAsignatura]["inscritosTeoria"] = inscritosTeoria
+            self.asignaturas[codigoAsignatura].setCuposTeoria(cuposTeoria)
+            self.datosPeriodoActual[codigoAsignatura]["inscritosLaboratorio"] = inscritosLaboratorio
+            self.asignaturas[codigoAsignatura].setCuposLaboratorio(cuposLaboratorio)
+        else:
+            self.datosPeriodoActual[codigoAsignatura] = {}
+            self.datosPeriodoActual[codigoAsignatura]["inscritosTeoria"] = inscritosTeoria
+            self.datosPeriodoActual[codigoAsignatura]["inscritosLaboratorio"] = inscritosLaboratorio
+
+        self.vistaMalla.datosPeriodoActual = self.datosPeriodoActual
+        self.vistaMalla.asignaturas = self.asignaturas
+        self.vistaMalla.alternarBotones()
+
+    def cantidadValida(self, cantidad, min, max):
+        if not cantidad.isnumeric():
+            return False
+        cantidad = int(cantidad)
+        if cantidad >= min and cantidad <= max:
+            return True

@@ -2,6 +2,7 @@ import psycopg2 as pc
 
 from Modelos.Plan import Plan
 from Modelos.Asignatura import Asignatura
+from Modelos.EstadisticaAsignatura import EstadisticaAsignatura
 
 class DatabaseContext():
 
@@ -87,7 +88,7 @@ class DatabaseContext():
             resultado = self.cursor.fetchone()
             return resultado
 
-    def buscarEstadisticaAsignatura(self,ano,periodo,codigo):
+    def buscarEstadisticaAsignatura(self, ano, periodo, codigo):
         if self.conn == None:
             print("Error en la conexión a la base de datos")
         else:
@@ -130,35 +131,6 @@ class DatabaseContext():
             self.conn.commit()
         return
 
-    def obtenerRequisitosAsignatura(self,codigo):
-        if self.conn == None:
-            print("Error en la conexión a la base de datos")
-        else:
-            query = "select cod_asignatura_requisito from requisito where cod_asignatura =" + str(codigo) + ";" 
-            self.cursor.execute(query)
-            resultados = self.cursor.fetchall()
-            if resultados:
-                return True,resultados
-            else:
-                return False,None
-
-    def obtenerNombreAsignatura(self,codigo):
-        if self.conn == None:
-            print("Error en la conexión a la base de datos")
-        else:
-            query = "select nombre from asignatura where codigo = " + str(codigo) + ";"
-            self.cursor.execute(query)
-            resultado = self.cursor.fetchone()
-            return resultado
-    
-    def obtenerTipoAsignatura(self,codigo):#version si es lab o teoria etc
-        if self.conn == None:
-            print("Error en la conexión a la base de datos")
-        else:
-            query = "select tipo from asignatura where codigo = " + str(codigo) + ";"
-            self.cursor.execute(query)
-            resultado = self.cursor.fetchone()
-            return resultado
         
     # Para interactuar con la vista
 
@@ -308,3 +280,25 @@ class DatabaseContext():
                 return plan
         except:
             return None
+
+    def obtenerEstadisticasAsignatura(self, codigo):
+        if self.conn == None:
+            print("Error en la conexión a la base de datos")
+        else:
+            query = "select * from estadistica_asignatura where cod_asignatura = " + str(codigo) + " ORDER BY ano desc, semestre desc;"
+            self.cursor.execute(query)
+            resultados = self.cursor.fetchall()
+            estadisticas = []
+            for resultado in resultados:
+                estadistica = EstadisticaAsignatura(resultado[2], resultado[3], codigo)
+                estadistica.setInscritosTeoria(resultado[4])
+                estadistica.setAprobadosTeoria(resultado[5])
+                estadistica.setReprobadosTeoria(resultado[6])
+                estadistica.setInscritosLaboratorio(resultado[7])
+                estadistica.setAprobadosLaboratorio(resultado[8])
+                estadistica.setReprobadosLaboratorio(resultado[9])
+                estadistica.setTasaAprobacionTeoria(resultado[10])
+                estadistica.setTasaAprobacionLaboratorio(resultado[11])
+                estadistica.setTasaDesinscripcion(resultado[12])
+                estadisticas.append(estadistica)
+            return estadisticas

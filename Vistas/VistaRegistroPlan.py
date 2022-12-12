@@ -11,7 +11,7 @@ class VistaRegistroPlan(QMainWindow):
         self.controladorRegistroPlan = controladorRegistroPlan
 
         self.button_home.clicked.connect(self.controladorRegistroPlan.volverContextoPrincipal)
-        self.button_registrar_asignatura.clicked.connect(self.controladorRegistroPlan.mostrarVistaRegistroAsignatura)
+        self.button_registrar_asignatura.clicked.connect(self.controladorRegistroPlan.inicializarRegistroAsignatura)
 
     def mostrarAlerta(self,titulo,texto):
         QMessageBox.information(self, titulo, texto)

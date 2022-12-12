@@ -258,7 +258,7 @@ class ControladorEstimacion():
         alumnosDisponiblesInscripcion = self.obtenerDisponiblesInscripcion(codigoAsignatura, asignaturas, datosPeriodoAnterior, datosHistoricos)
 
         inscritosTeoria = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "inscritosTeoria")
-        tasaReprobacionTeoria = ponderacionValoresHistoricos * datosHistoricos[codigoAsignatura]["tasaAprobacionTeoria"] + ponderacionValoresPeriodoAnterior * datosPeriodoAnterior[codigoAsignatura]["tasaAprobacionTeoria"]
+        tasaReprobacionTeoria = ponderacionValoresHistoricos * (1 - datosHistoricos[codigoAsignatura]["tasaAprobacionTeoria"]) + ponderacionValoresPeriodoAnterior * (1 - datosPeriodoAnterior[codigoAsignatura]["tasaAprobacionTeoria"])
         inscritosTeoriaRequisitos= self.obtenerCantidadAlumnoPeriodo(requisitoPrioritario, asignaturas, datosPeriodoAnterior, "inscritosTeoria")
         tasaAprobacionTeoriaRequisito = ponderacionValoresHistoricos * datosHistoricos[requisitoPrioritario]["tasaAprobacionTeoria"] + ponderacionValoresPeriodoAnterior * datosPeriodoAnterior[requisitoPrioritario]["tasaAprobacionTeoria"]
 
@@ -266,7 +266,7 @@ class ControladorEstimacion():
         alumnosAprobadosRequisitoPrioritarioTeoria = inscritosTeoriaRequisitos * tasaAprobacionTeoriaRequisito
 
         inscritosLaboratorio = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "inscritosLaboratorio")
-        tasaReprobacionLaboratorio = ponderacionValoresHistoricos * datosHistoricos[codigoAsignatura]["tasaAprobacionLaboratorio"] + ponderacionValoresPeriodoAnterior * datosPeriodoAnterior[codigoAsignatura]["tasaAprobacionLaboratorio"]
+        tasaReprobacionLaboratorio = ponderacionValoresHistoricos * (1 - datosHistoricos[codigoAsignatura]["tasaAprobacionLaboratorio"]) + ponderacionValoresPeriodoAnterior * (1 - datosPeriodoAnterior[codigoAsignatura]["tasaAprobacionLaboratorio"])
         inscritosLaboratorioRequisitos= self.obtenerCantidadAlumnoPeriodo(requisitoPrioritario, asignaturas, datosPeriodoAnterior, "inscritosLaboratorio")
         tasaAprobacionLaboratorioRequisito = ponderacionValoresHistoricos * datosHistoricos[requisitoPrioritario]["tasaAprobacionLaboratorio"] + ponderacionValoresPeriodoAnterior * datosPeriodoAnterior[requisitoPrioritario]["tasaAprobacionLaboratorio"]
 

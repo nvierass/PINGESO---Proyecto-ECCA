@@ -154,6 +154,7 @@ class VistaMalla(QMainWindow):
             self.value_ps_lcpc.setText("--")
             self.label_observaciones.setText("")
         asignatura = self.asignaturas[codigoAsignatura]
+        self.resaltarRequisitos(asignatura)
         self.seleccionado.setStyleSheet(".QPushButton {background: #FF7A00}")
         self.codigoAsignaturaSeleccionada = int(boton.objectName())
         self.label_nombre_codigo.setText(asignatura.getNombre() + " ("+str(codigoAsignatura)+")")
@@ -237,8 +238,6 @@ class VistaMalla(QMainWindow):
         self.input_inscritosLaboratorio.setEnabled(True)
         self.input_cuposLaboratorio.setEnabled(True)
 
-
-            
     def alternarBotones(self):
         self.button_guardar.setVisible(False)
         self.button_editar_pa.setVisible(True)
@@ -247,3 +246,6 @@ class VistaMalla(QMainWindow):
         self.input_inscritosLaboratorio.setEnabled(False)
         self.input_cuposLaboratorio.setEnabled(False)
         
+
+    def resaltarRequisitos(self, asignatura):
+        aux = 0

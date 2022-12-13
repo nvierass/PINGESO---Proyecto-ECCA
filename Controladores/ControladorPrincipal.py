@@ -34,6 +34,10 @@ class ControladorPrincipal():
         self.GUI.addWidget(self.vistaPrincipal)
         self.GUI.show()
 
+    def actualizarVista(self):
+        planesRegistrados = self.databaseContext.obtenerPlanes()
+        self.vistaPrincipal.setPlanesRegitrados(planesRegistrados)
+        
     def mostrarVistaPrincipal(self):
         self.GUI.addWidget(self.vistaPrincipal)
         self.GUI.setCurrentIndex(self.GUI.currentIndex()+1)

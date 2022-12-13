@@ -302,3 +302,81 @@ class DatabaseContext():
                 estadistica.setTasaDesinscripcion(resultado[12])
                 estadisticas.append(estadistica)
             return estadisticas
+
+    def insertarNuevaAsignatura(self, asignatura):
+        try:
+            if self.conn == None:
+                print("Error en la conexión a la base de datos")
+                return False
+            else:
+                queryCompleta = ""
+                queryAsignatura = "INSERT INTO asignatura(codigo, nombre, tipo) values (" + str(asignatura.getCodigo()) + ",'" + asignatura.getNombre() + "','" + asignatura.getTipoAsignatura()  + "');\n"
+            
+                queryEquivalentes = ""
+                equivalentes = asignatura.getAsignaturasEquivalentes()
+                equivalentes.append(asignatura.getCodigo())
+                for codigoA in equivalentes:
+                    for codigoB in equivalentes:
+                        if codigoA!= codigoB:
+                            insertQuery = "INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (" + str(codigoA) + "," + str(codigoB) + ");\n"
+                            queryEquivalentes += insertQuery
+
+                queryRequisitos = ""
+                nivelesRequisitos = asignatura.getAsignaturasRequisitos()
+                for nivel in nivelesRequisitos:
+                    for codigoRequisito in nivelesRequisitos[nivel]:
+                        insertQuery = "INSERT INTO requisito(cod_asignatura, cod_asignatura_requisito, nivel_requisito) values (" + str(asignatura.getCodigo()) + "," + str(codigoRequisito) + "," + str(nivel) + ");\n"
+                        queryRequisitos += insertQuery
+                queryCompleta = queryAsignatura + queryEquivalentes + queryRequisitos
+                self.cursor.execute(queryCompleta)
+                self.conn.commit()
+                return True
+        except:
+            return False
+
+    def insertarNuevoPlan(self, plan):
+        try:
+            if self.conn == None:
+                print("Error en la conexión a la base de datos")
+                return False
+            else:
+                queryPlan = "INSERT INTO Plan(nombre, version, duracion_semestres) values ('"+ plan.getNombre() + "','" + plan.getVersion() + "'," + str(plan.getDuracion())  + ");\n"
+                self.cursor.execute(queryPlan)
+                self.conn.commit() 
+                return True
+        except:
+            return False
+
+    def insertarAsignaturasPlan(self, plan):
+        try:
+            if self.conn == None:
+                print("Error en la conexión a la base de datos")
+                return False
+            else:
+                queryAsignaturas = ""
+                nivelesAsignaturas = plan.getAsignaturas()
+                for nivel in nivelesAsignaturas:
+                    for codigo in nivelesAsignaturas[nivel]:
+                        insertQuery = "INSERT INTO plan_asignatura(id_plan, cod_asignatura, nivel) values (" + str(plan.getId()) + "," + str(codigo) + "," + str(nivel) + ");\n"
+                        queryAsignaturas += insertQuery
+                self.cursor.execute(queryAsignaturas)
+                self.conn.commit()
+                return True
+        except:
+            return False
+
+    def getIdPlan(self, plan):
+        try:
+            if self.conn == None:
+                print("Error en la conexión a la base de datos")
+                return False
+            else:
+                nombre = plan.getNombre()
+                version = plan.getVersion()
+                duracion = plan.getDuracion()
+                queryId = "Select id from plan where nombre = '" + nombre + "' and version = '"+ version + "' and duracion_semestres = " + str(duracion) +";"
+                self.cursor.execute(queryId)
+                idPlan = self.cursor.fetchone()[0]
+                return idPlan
+        except:
+            return False

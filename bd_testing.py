@@ -43,8 +43,11 @@ if rs:
             print(codigo)
 else:
     print("No existe plan")
-'''
+
 
 rs = db.obtenerEstadisticasAsignatura(13204)
 for estadistica in rs:
     print(estadistica)
+'''
+
+print(db.getIdPlan())

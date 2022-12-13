@@ -28,7 +28,6 @@ class ControladorGestionEstadisticas():
 
     def actualizarTabla(self):
         codigo, nombre = self.vistaGestionEstadisticas.getCodigoNombreSeleccionado()
-        self.vistaGestionEstadisticas.limpiarGrid()
         if codigo not in self.estadisticas:
             estadisticasAsignatura = self.databaseContext.obtenerEstadisticasAsignatura(codigo)
             self.estadisticas[codigo] = estadisticasAsignatura

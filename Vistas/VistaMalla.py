@@ -137,6 +137,12 @@ class VistaMalla(QMainWindow):
 
     
     def mostrarDatosAsignatura(self, codigoAsignatura, boton):
+        self.seleccionado.setStyleSheet("")
+        self.seleccionado = boton
+        self.seleccionado.setStyleSheet(".QPushButton {\n"
+                                "    color: white;\n"
+                                "    background: #FF7A00;\n"
+                                "}")
         self.button_editar_pa.setVisible(True)
         if(codigoAsignatura == self.codigoAsignaturaSeleccionada):
             return
@@ -155,7 +161,6 @@ class VistaMalla(QMainWindow):
             self.label_observaciones.setText("")
         asignatura = self.asignaturas[codigoAsignatura]
         self.resaltarRequisitos(asignatura)
-        self.seleccionado.setStyleSheet(".QPushButton {background: #FF7A00}")
         self.codigoAsignaturaSeleccionada = int(boton.objectName())
         self.label_nombre_codigo.setText(asignatura.getNombre() + " ("+str(codigoAsignatura)+")")
 

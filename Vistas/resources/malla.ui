@@ -872,6 +872,12 @@ QFrame &gt; QPushButton:pressed {
                   <property name="focusPolicy">
                    <enum>Qt::NoFocus</enum>
                   </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="alternatingRowColors">
+                   <bool>false</bool>
+                  </property>
                   <attribute name="horizontalHeaderDefaultSectionSize">
                    <number>160</number>
                   </attribute>

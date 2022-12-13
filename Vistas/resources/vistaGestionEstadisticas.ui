@@ -246,8 +246,11 @@
          </rect>
         </property>
         <layout class="QGridLayout" name="grid_estadisticas">
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_9">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetFixedSize</enum>
+         </property>
+         <item row="0" column="6">
+          <widget class="QLabel" name="label_6">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -255,12 +258,12 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Inscritos Teoría</string>
+            <string>Aprob. Laboratorio</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_11">
+         <item row="0" column="5">
+          <widget class="QLabel" name="label_7">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -268,7 +271,33 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Año</string>
+            <string>Inscritos Laboratorio</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="7">
+          <widget class="QLabel" name="label_5">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Reprob. Laboratorio</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="9">
+          <widget class="QLabel" name="label_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>T. Aprob. Laboratorio</string>
            </property>
           </widget>
          </item>
@@ -285,20 +314,8 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="3">
-          <widget class="QLineEdit" name="lineEdit_8"/>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_10"/>
-         </item>
-         <item row="1" column="2">
-          <widget class="QLineEdit" name="lineEdit_9"/>
-         </item>
-         <item row="1" column="9">
-          <widget class="QLineEdit" name="lineEdit_2"/>
-         </item>
-         <item row="0" column="3">
-          <widget class="QLabel" name="label_10">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_11">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -306,21 +323,35 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Aprob. Teoría</string>
+            <string>Año</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="4">
-          <widget class="QLineEdit" name="lineEdit_7"/>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_9">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Inscritos Teoría</string>
+           </property>
+          </widget>
          </item>
-         <item row="1" column="8">
-          <widget class="QLineEdit" name="lineEdit"/>
-         </item>
-         <item row="1" column="10">
-          <widget class="QLineEdit" name="lineEdit_12"/>
-         </item>
-         <item row="1" column="6">
-          <widget class="QLineEdit" name="lineEdit_5"/>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_12">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Semestre</string>
+           </property>
+          </widget>
          </item>
          <item row="0" column="8">
           <widget class="QLabel" name="label_2">
@@ -348,18 +379,8 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="11">
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>Editar</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="7">
-          <widget class="QLineEdit" name="lineEdit_4"/>
-         </item>
-         <item row="0" column="9">
-          <widget class="QLabel" name="label_3">
+         <item row="0" column="3">
+          <widget class="QLabel" name="label_10">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -367,85 +388,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>T. Aprob. Laboratorio</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="7">
-          <widget class="QLabel" name="label_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Reprob. Laboratorio</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="5">
-          <widget class="QLabel" name="label_7">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Inscritos Laboratorio</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLineEdit" name="lineEdit_11"/>
-         </item>
-         <item row="1" column="12">
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="text">
-            <string>Eliminar</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="11" colspan="2">
-          <widget class="QLabel" name="label_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Acción</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="6">
-          <widget class="QLabel" name="label_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Aprob. Laboratorio</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="5">
-          <widget class="QLineEdit" name="lineEdit_6"/>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Semestre</string>
+            <string>Aprob. Teoría</string>
            </property>
           </widget>
          </item>

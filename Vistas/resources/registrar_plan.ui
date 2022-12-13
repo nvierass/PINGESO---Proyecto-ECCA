@@ -126,7 +126,7 @@
              <item row="0" column="0">
               <widget class="QLabel" name="label_nombre">
                <property name="text">
-                <string>Carrera:</string>
+                <string>Nombre del plan:</string>
                </property>
               </widget>
              </item>
@@ -141,17 +141,18 @@
               <widget class="QLineEdit" name="input_nombre"/>
              </item>
              <item row="1" column="1">
-              <widget class="QSpinBox" name="spinBox_version">
-               <property name="minimum">
-                <number>2000</number>
-               </property>
-               <property name="maximum">
-                <number>2050</number>
-               </property>
-               <property name="value">
-                <number>2022</number>
+              <widget class="QLineEdit" name="input_version"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Duración formal: 
+(Semestres)</string>
                </property>
               </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="input_duracion"/>
              </item>
             </layout>
            </widget>
@@ -297,11 +298,6 @@
               <column>
                <property name="text">
                 <string>Asignatura</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Nivel</string>
                </property>
               </column>
              </widget>

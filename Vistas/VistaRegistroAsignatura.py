@@ -9,11 +9,9 @@ class VistaRegistroAsignatura(QMainWindow):
         uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/registrar_asignatura.ui"), self)
 
         self.controladorRegistroPlan = controladorRegistroPlan
-        self.table_prerrequisitos.setColumnWidth(1, 320)
         self.button_volver.clicked.connect(self.controladorRegistroPlan.mostrarVistaRegistroPlan)
         self.button_guardar.clicked.connect(self.controladorRegistroPlan.registrarAsignatura)
-        #self.button_guardar.clicked.connect(self.getCodigosNivelRequisitos)
-
+    
         self.button_quitar_requisito.clicked.connect(self.quitarRequisito)
         self.button_agregar_requisito.clicked.connect(self.agregarRequisito)
         
@@ -22,6 +20,8 @@ class VistaRegistroAsignatura(QMainWindow):
 
     
     def montarVista(self, asignaturasRegistradas):
+        self.table_prerrequisitos.setColumnWidth(1, 200)
+        self.table_prerrequisitos.setColumnWidth(0, 60)
         self.poblarAsignaturasRegistradas(asignaturasRegistradas)
 
     def quitarFila(self, tabla, fila):
@@ -63,22 +63,41 @@ class VistaRegistroAsignatura(QMainWindow):
         codigos = []
         total_filas = tabla.rowCount()
         for fila in range(0,total_filas):
-            codigo = int(tabla.item(fila,0).text())
+            codigo = tabla.item(fila,0).text()
             codigos.append(codigo)
         return codigos
+
+    def getCodigosRequisitos(self):
+        tabla = self.table_prerrequisitos
+        codigos = []
+        total_filas = tabla.rowCount()
+        for fila in range(0,total_filas):
+            codigo = tabla.item(fila,0).text()
+            codigos.append(codigo)
+        return codigos
+    
+    def nivelesIngresados(self):
+        tabla = self.table_prerrequisitos
+        total_filas = tabla.rowCount()
+        for fila in range(0,total_filas):
+            nivel = tabla.item(fila,2).text()
+            if not nivel.isnumeric():
+                return False
+        return True
 
     def getCodigosNivelRequisitos(self):
         tabla = self.table_prerrequisitos
         codigosNivel = {}
         total_filas = tabla.rowCount()
         for fila in range(0,total_filas):
-            nivel = int(tabla.item(fila,2).text())
-            codigo = int(tabla.item(fila,0).text())
-            if nivel in codigosNivel:
-                codigosNivel[nivel].append(codigo)
-            else:
-                codigosNivel[nivel] = [codigo]
-        print("codigos nivel",codigosNivel)
+            stringNivel = tabla.item(fila,2).text()
+            if stringNivel.isnumeric():
+                nivel = tabla.item(fila,2).text()
+                codigo = tabla.item(fila,0).text()
+                if nivel in codigosNivel:
+                    codigosNivel[nivel].append(codigo)
+                else:
+                    codigosNivel[nivel] = [codigo]
         return codigosNivel
 
     def agregarFila(self, tabla, codigo, asignatura):
@@ -86,21 +105,50 @@ class VistaRegistroAsignatura(QMainWindow):
         tabla.insertRow(fila)
         tabla.setItem(fila,0, QTableWidgetItem(codigo))
         tabla.setItem(fila,1, QTableWidgetItem(asignatura))
+        if tabla == self.table_prerrequisitos:
+            tabla.setItem(fila,2, QTableWidgetItem("Doble click para ingresar nivel."))
 
     def agregarRequisito(self):
+        requisitosAgregados = self.getCodigosRequisitos()
         seleccionados = self.table_registradas.selectedItems()
         if seleccionados != []:
             lista_filas = map(lambda item:item.row(), seleccionados)
             lista_filas = list(set(lista_filas))
             
             for fila in lista_filas:
-                self.agregarFila(self.table_prerrequisitos, self.table_registradas.item(fila,0), self.table_registradas.item(fila,1))
+                codigo =  self.table_registradas.item(fila,0).text()
+                nombreAsignatura = self.table_registradas.item(fila,1).text()
+                if not codigo in requisitosAgregados:
+                    self.agregarFila(self.table_prerrequisitos, codigo, nombreAsignatura)
+                else:
+                    self.mostrarAlerta("Advertencia", "Una o mas asignaturas seleccionadas ya han sido incluidas como requisitos.")
+                    return
             #Se ordenan automaticamente en base al nivel
             self.table_prerrequisitos.sortItems(2)
         
         else:
             QMessageBox.information(self, "Atención", "Seleccione las asignaturas que desea agregar como requisitos")
-        
+    
+    def agregarEquivalente(self):
+        equivalentesAgregadas = self.getCodigosEquivalentes()
+        seleccionados = self.table_registradas.selectedItems()
+        if seleccionados != []:
+            lista_filas = map(lambda item:item.row(), seleccionados)
+            lista_filas = list(set(lista_filas))
+            for fila in lista_filas:
+                codigo =  self.table_registradas.item(fila,0).text()
+                nombreAsignatura = self.table_registradas.item(fila,1).text()
+                if codigo in equivalentesAgregadas:
+                    print(codigo, "Ya existe")
+                    self.mostrarAlerta("Error", "La asignatura ya ha sido agregada como equivalente.")
+                    return
+                else:
+                    print(codigo, "No existe, se agrega",equivalentesAgregadas)
+                    self.agregarFila(self.table_analogas, codigo, nombreAsignatura)
+            self.table_analogas.sortItems(2)
+        else:
+            QMessageBox.information(self, "Atención", "Seleccione las asignaturas que desea agregar como análogas")
+
     def quitarRequisito(self):
         lista_seleccionados = self.table_prerrequisitos.selectedItems()
         pasos = 0
@@ -113,21 +161,6 @@ class VistaRegistroAsignatura(QMainWindow):
         if pasos == 0:
             QMessageBox.information(self, "Atención", "Seleccione las asignaturas que desea quitar de la lista de prerrequisitos")
 
-    def agregarEquivalente(self):
-        seleccionados = self.table_registradas.selectedItems()
-        
-        if seleccionados != []:
-            lista_filas = map(lambda item:item.row(), seleccionados)
-            lista_filas = list(set(lista_filas))
-            
-            for fila in lista_filas:
-                self.agregarFila(self.table_analogas, self.table_registradas.item(fila,0), self.table_registradas.item(fila,1))
-            #Se ordenan automaticamente en base al nivel
-            self.table_analogas.sortItems(2)
-        
-        else:
-            QMessageBox.information(self, "Atención", "Seleccione las asignaturas que desea agregar como análogas")
-            
     def quitarEquivalente(self):
         lista_seleccionados = self.table_analogas.selectedItems()
         pasos = 0

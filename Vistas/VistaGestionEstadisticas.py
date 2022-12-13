@@ -1,6 +1,6 @@
 import os
 from PyQt5 import uic, QtWidgets, QtCore
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QAbstractSpinBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QAbstractSpinBox, QGridLayout
 from functools import partial
 
 class VistaGestionEstadisticas(QMainWindow):
@@ -45,7 +45,8 @@ class VistaGestionEstadisticas(QMainWindow):
             self.agregarAsignatura(codigoAsignatura, asignatura.getNombre())
 
     def agregarEstadisticas(self, estadisticasAsignatura):
-        self.cantidadEstadisticas = len(estadisticasAsignatura)
+        cantidadEstadisticas = len(estadisticasAsignatura)
+        self.limpiarGrid(cantidadEstadisticas, self.cantidadEstadisticas)
         indexFila = 1
         for estadistica in estadisticasAsignatura:
             input_ano = QtWidgets.QLineEdit(self.scrollAreaWidgetContents)
@@ -129,7 +130,7 @@ class VistaGestionEstadisticas(QMainWindow):
             button_editar.setMinimumSize(QtCore.QSize(0, 20))
             button_editar.setAccessibleName("button_editar_"+str(indexFila))
             button_editar.setText("Editar")
-            #button_editar.clicked.connect(partial(self.botonEditarClicked, self.pushButton))
+            button_editar.clicked.connect(partial(self.botonEditarClicked, self.pushButton))
             self.grid_estadisticas.addWidget(button_editar, indexFila, 11)
 
             button_eliminar = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
@@ -138,11 +139,23 @@ class VistaGestionEstadisticas(QMainWindow):
             button_eliminar.setText("Eliminar")
             button_eliminar.clicked.connect(partial(self.controladorGestionEstadisticas.botonEliminarClicked, indexFila - 1))
             self.grid_estadisticas.addWidget(button_eliminar, indexFila, 12)
-            
-
             indexFila += 1
+        self.cantidadEstadisticas = len(estadisticasAsignatura)
 
-    def limpiarGrid(self):
-        aux = 0
-
+    def limpiarGrid(self, cantidadNueva, cantidadActual):
+        while cantidadNueva < cantidadActual:
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 0))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 1))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 2))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 3))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 4))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 5))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 6))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 7))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 8))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 9))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 10))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 11))
+            self.grid_estadisticas.removeItem(self.grid_estadisticas.itemAtPosition(cantidadActual, 12))
+            cantidadActual -= 1
                     

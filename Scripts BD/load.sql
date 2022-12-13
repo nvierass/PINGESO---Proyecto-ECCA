@@ -867,8 +867,7 @@ insert into estadistica_asignatura(cod_asignatura,ano,semestre,inscritos_teoria,
 insert into estadistica_asignatura(cod_asignatura,ano,semestre,inscritos_teoria,aprobados_teoria,reprobados_teoria,tasa_aprobacion_teoria) values (13286,2018,2,4,4,0,1);
 
 --2019-1
-insert into estadistica_asignatura(cod_asignatura,ano,semestre,inscritos_teoria,aprobados_teoria,reprobados_teoria,tasa_aprobacion_teoria) values (13201,2019,1,74,56,18,0.75);
-insert into estadistica_asignatura(cod_asignatura,ano,semestre,inscritos_teoria,aprobados_teoria,reprobados_teoria,tasa_aprobacion_teoria) values (13201,2019,1,11,8,3,0.72);
+insert into estadistica_asignatura(cod_asignatura,ano,semestre,inscritos_teoria,aprobados_teoria,reprobados_teoria,tasa_aprobacion_teoria) values (13201,2019,1,85,64,21,0.75);
 insert into estadistica_asignatura(cod_asignatura,ano,semestre,inscritos_teoria,aprobados_teoria,reprobados_teoria,tasa_aprobacion_teoria) values (13204,2019,1,40,24,16,0.6);
 insert into estadistica_asignatura(cod_asignatura,ano,semestre,inscritos_teoria,aprobados_teoria,reprobados_teoria,tasa_aprobacion_teoria) values (13205,2019,1,41,26,15,0.63);
 insert into estadistica_asignatura(cod_asignatura,ano,semestre,inscritos_teoria,aprobados_teoria,reprobados_teoria,tasa_aprobacion_teoria) values (13209,2019,1,32,31,1,0.96);

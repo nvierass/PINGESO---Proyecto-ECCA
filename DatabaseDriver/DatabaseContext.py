@@ -380,3 +380,57 @@ class DatabaseContext():
                 return idPlan
         except:
             return False
+
+    def actualizarEstadisticaAsignatura(self, estadistica):
+        try:
+            if self.conn == None:
+                print("Error en la conexión a la base de datos")
+                return False
+            else:
+                updateQuery = "UPDATE estadistica_asignatura SET " + \
+                "inscritos_teoria = " + str(estadistica.getInscritosTeoria()) + \
+                ", aprobados_teoria = " + str(estadistica.getAprobadosTeoria()) + \
+                ", reprobados_teoria = " + str(estadistica.getReprobadosTeoria()) + \
+                ", inscritos_laboratorio = " + str(estadistica.getInscritosLaboratorio()) + \
+                ", aprobados_laboratorio = " + str(estadistica.getAprobadosLaboratorio()) + \
+                ", reprobados_laboratorio = " + str(estadistica.getReprobadosLaboratorio())+ \
+                ", tasa_aprobacion_teoria = " + str(estadistica.getTasaAprobacionTeoria()) + \
+                ", tasa_aprobacion_laboratorio = " + str(estadistica.getTasaAprobacionLaboratorio()) + \
+                ", tasa_desinscripcion = " + str(estadistica.getTasaDesinscripcion()) + \
+                " WHERE cod_asignatura = " + str(estadistica.getCodigo()) + " and ano = " + str(estadistica.getAno()) + " and semestre = " + str(estadistica.getSemestre()) + ";"
+                self.cursor.execute(updateQuery)
+                self.conn.commit()
+                return True
+        except:
+            return False
+
+    def registrarEstadisticaAsignatura(self, estadistica):
+        try:
+            if self.conn == None:
+                print("Error en la conexión a la base de datos")
+                return False
+            else:
+                insertQuery = "INSERT INTO estadistica_asignatura " + \
+                    "(cod_asignatura, ano, semestre,inscritos_teoria,aprobados_teoria,reprobados_teoria,inscritos_laboratorio,aprobados_laboratorio,reprobados_laboratorio,tasa_aprobacion_teoria,tasa_aprobacion_laboratorio,tasa_desinscripcion) "+ \
+                    "VALUES (" + str(estadistica.getCodigo())+"," + str(estadistica.getAno()) +"," + str(estadistica.getSemestre()) +"," + str(estadistica.getInscritosTeoria())+","+ str(estadistica.getAprobadosTeoria())+","+ str(estadistica.getReprobadosTeoria()) + \
+                    "," + str(estadistica.getInscritosLaboratorio())+","+ str(estadistica.getAprobadosLaboratorio()) +"," + str(estadistica.getReprobadosLaboratorio()) + \
+                    "," + str(estadistica.getTasaAprobacionTeoria())+","+ str(estadistica.getTasaAprobacionLaboratorio())+","+ str(estadistica.getTasaDesinscripcion()) + ");"
+                self.cursor.execute(insertQuery)
+                self.conn.commit()
+                return True
+        except:
+            return False
+
+    def eliminarEstadistica(self, estadistica):
+        try:
+            if self.conn == None:
+                print("Error en la conexión a la base de datos")
+                return False
+            else:
+                deleteQuery = "DELETE FROM estadistica_asignatura WHERE cod_asignatura = " + str(estadistica.getCodigo()) + " and ano = " + str(estadistica.getAno()) + " and semestre = " + str(estadistica.getSemestre()) + ";"
+                self.cursor.execute(deleteQuery)
+                self.conn.commit()
+                return True
+        except:
+            return False
+        

@@ -64,10 +64,15 @@ class ControladorGestionEstadisticas():
         estadistica = self.estadisticas[codigo][index]
         ano = estadistica.getAno()
         semestre = estadistica.getSemestre()
-        if self.vistaGestionEstadisticas.confirmarEliminacion(codigo, nombre, ano, semestre):
-            #eliminar BD
-            del self.estadisticas[codigo][index]
-            self.actualizarTabla()
+        if not self.vistaGestionEstadisticas.confirmarEliminacion(codigo, nombre, ano, semestre):
+            return
+        eliminacionExitosa = self.databaseContext.eliminarEstadistica(estadistica)
+        if not eliminacionExitosa:
+            self.vistaGestionEstadisticas.mostrarAlerta("Error", "No se ha logrado eliminar la estadística.")
+            return
+        self.vistaGestionEstadisticas.mostrarAlerta("Exito", "La estadística ha sido eliminada.")
+        del self.estadisticas[codigo][index]
+        self.actualizarTabla()
 
     def botonCancelarClicked(self, index):
         fila = index + 1
@@ -112,7 +117,7 @@ class ControladorGestionEstadisticas():
         estadisticaActualizada.setTasaAprobacionTeoria(tasaAprobacionTeoria)
         estadisticaActualizada.setTasaAprobacionLaboratorio(tasaAprobacionLaboratorio)
         estadisticaActualizada.setTasaDesinscripcion(tasaDesinscripcion)
-        actualizacionExitosa = True#self.databaseContext.actualizarEstadisticaAsignatura(estadisticaAnterior, estadisticaActualizada)
+        actualizacionExitosa = self.databaseContext.actualizarEstadisticaAsignatura(estadisticaActualizada)
         if actualizacionExitosa:
             self.vistaGestionEstadisticas.mostrarAlerta("Exito", "La estadística se ha actualizado correctamente.")
             self.estadisticas[codigo][index] = estadisticaActualizada
@@ -159,7 +164,7 @@ class ControladorGestionEstadisticas():
         estadisticaNueva.setTasaAprobacionTeoria(tasaAprobacionTeoria)
         estadisticaNueva.setTasaAprobacionLaboratorio(tasaAprobacionLaboratorio)
         estadisticaNueva.setTasaDesinscripcion(tasaDesinscripcion)
-        ingresoExitoso = True#self.databaseContext.actualizarEstadisticaAsignatura(estadisticaAnterior, estadisticaActualizada)
+        ingresoExitoso = self.databaseContext.registrarEstadisticaAsignatura(estadisticaNueva)
         if not ingresoExitoso:
             self.vistaGestionEstadisticas.mostrarAlerta("Error", "La estadística no se ha ingresado correctamente.")
             self.vistaGestionEstadisticas.editandoEstadistica = False
@@ -180,6 +185,9 @@ class ControladorGestionEstadisticas():
         self.actualizarTabla()
 
     def iniciarIngreso(self):
+        if self.vistaGestionEstadisticas.edicionActiva():
+            self.vistaGestionEstadisticas.mostrarAlerta("Advertencia", "Debe finalizar la edición actual antes de agregas nuevas estadísticas.")
+            return
         self.vistaGestionEstadisticas.agregarFilaIngreso()
 
     def botonCancelarIngresoClicked(self):

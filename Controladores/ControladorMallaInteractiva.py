@@ -45,7 +45,7 @@ class ControladorMallaInteractiva():
         controladorEstimacion = ControladorEstimacion(None, None, None, True)
         controladorEstimacion.asignaturas = self.asignaturas
         asignatura = controladorEstimacion.definirRequisitoPrioritario( codigoAsignatura, asignatura, self.datosPeriodoActual, self.datosHistoricos)
-        resultado = controladorEstimacion.estimarAsignaturaPriori(asignatura, self.asignaturas, self.datosHistoricos, self.datosPeriodoActual, 0.5, 0.5)
+        resultado = controladorEstimacion.estimarAsignaturaPriori(asignatura, self.asignaturas, self.datosHistoricos, self.datosPeriodoActual, self.datosPeriodoAnterior, 0.5, 0.5)
         self.vistaMalla.agregarResultado(codigoAsignatura, resultado)
         self.vistaMalla.mostrarResultado(resultado)
 
@@ -55,7 +55,7 @@ class ControladorMallaInteractiva():
         controladorEstimacion = ControladorEstimacion(None, None, None, True)
         controladorEstimacion.asignaturas = self.asignaturas
         asignatura = controladorEstimacion.definirRequisitoPrioritario( codigoAsignatura, asignatura, self.datosPeriodoAnterior, self.datosHistoricos)
-        resultado = controladorEstimacion.estimarAsignaturaPosteriori(asignatura, self.asignaturas, self.datosHistoricos, self.datosPeriodoAnterior)
+        resultado = controladorEstimacion.estimarAsignaturaPosteriori(asignatura, self.asignaturas, self.datosHistoricos, self.datosPeriodoActual)
         self.vistaMalla.agregarResultado(codigoAsignatura, resultado)
         self.vistaMalla.mostrarResultado(resultado)
 

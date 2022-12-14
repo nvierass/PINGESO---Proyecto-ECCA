@@ -23,14 +23,14 @@ class ControladorEstimacion():
                 sys.exit()
             self.resultadosEstimacion = {}
 
-    def definirRequisitoPrioritario(self, codigo, asignatura, datosPeriodoAnterior, datosHistoricos):
+    def definirRequisitoPrioritario(self, codigo, asignatura, datosPeriodoBase, datosHistoricos):
         requisitoEncontrado, requisito = self.aplicarCriterioPrioritarioNivel(codigo)
         if not requisitoEncontrado:
             requisitosMayorNivel = requisito
             requisitoEncontrado, requisito = self.aplicarCriterioPrioritarioDificultad(requisitosMayorNivel, datosHistoricos)
         if not requisitoEncontrado:
             requisitosCandidatos = requisito
-            requisitoEncontrado, requisito = self.aplicarCriterioPrioritarioCantidadAlumnos(requisitosCandidatos, datosPeriodoAnterior)
+            requisitoEncontrado, requisito = self.aplicarCriterioPrioritarioCantidadAlumnos(requisitosCandidatos, datosPeriodoBase)
         asignatura.setRequisitoPrioritario(requisito)
         return asignatura
 
@@ -62,12 +62,12 @@ class ControladorEstimacion():
             return True, requisitosCandidatos[0]
         return False, requisitosCandidatos
 
-    def aplicarCriterioPrioritarioCantidadAlumnos(self, requisitosPotenciales, datosPeriodoAnterior):
+    def aplicarCriterioPrioritarioCantidadAlumnos(self, requisitosPotenciales, datosPeriodoBase):
         requisitosCandidatos = []
         menorCantidadAlumnos = 1000
         for requisitoCandidato in requisitosPotenciales:
-            if (not self.perteneceMBI(requisitoCandidato)) and (requisitoCandidato in datosPeriodoAnterior):
-                alumnosInscritos = datosPeriodoAnterior[requisitoCandidato]["inscritosTeoria"]
+            if (not self.perteneceMBI(requisitoCandidato)) and (requisitoCandidato in datosPeriodoBase):
+                alumnosInscritos = datosPeriodoBase[requisitoCandidato]["inscritosTeoria"]
                 if alumnosInscritos <= menorCantidadAlumnos:
                     requisitosCandidatos = [requisitoCandidato]
                     menorCantidadAlumnos = alumnosInscritos
@@ -156,33 +156,22 @@ class ControladorEstimacion():
         self.ponderacionValoresHistoricos = int(ponderacionValoresHistoricos) / 100
         self.ponderacionValoresPeriodoAnterior = int(ponderacionValoresPeriodoAnterior) / 100
         self.tipoEstimacion = tipoEstimacion
-        anoPeriodoAnterior, semestrePeriodoAnterior = self.periodoAnterior(ano, semestre)        
+        anoPeriodoBase, semestrePeriodoBase = self.periodoAnterior(ano, semestre)
+        anoPeriodoAnterior, semestrePeriodoAnterior = self.periodoAnterior(anoPeriodoBase, semestrePeriodoBase)
         self.datosHistoricos = self.databaseContext.obtenerTasasHistoricas()
+        self.datosPeriodoBase = self.databaseContext.obtenerEstadisticasPeriodo(anoPeriodoBase, semestrePeriodoBase)
         self.datosPeriodoAnterior = self.databaseContext.obtenerEstadisticasPeriodo(anoPeriodoAnterior, semestrePeriodoAnterior)
-        self.asignaturas = self.determinarRequisitosPrioritarios(self.asignaturas, self.datosPeriodoAnterior, self.datosHistoricos)
+        self.asignaturas = self.determinarRequisitosPrioritarios(self.asignaturas, self.datosPeriodoBase, self.datosHistoricos)
         self.vistaCupos.montarVista(self.asignaturas)
         self.mostrarVistaCupos()
         
     def realizarEstimacion(self):
         self.asignaturas = self.vistaCupos.actualizarCuposAsignaturas(self.asignaturas)
-        self.resultadosEstimacion = self.estimarAsignaturas(self.asignaturas, self.tipoEstimacion, self.datosHistoricos, self.datosPeriodoAnterior, self.ponderacionValoresHistoricos, self.ponderacionValoresPeriodoAnterior)
+        self.resultadosEstimacion = self.estimarAsignaturas(self.asignaturas, self.tipoEstimacion, self.datosHistoricos, self.datosPeriodoBase, self.datosPeriodoAnterior, self.ponderacionValoresHistoricos, self.ponderacionValoresPeriodoAnterior)
         self.vistaResultados.montarVista(self.resultadosEstimacion)
         self.mostrarVistaResultados()
-        self.mostrarAsignaturas()
 
-    def mostrarAsignaturas(self):
-        rs = self.asignaturas
-        for codigo in rs:
-            print("\nAsignatura:", rs[codigo].getCodigo())
-            print("\tNombre:",rs[codigo].getNombre())
-            print("\tRequisitos:")
-            requisitos = rs[codigo].getAsignaturasRequisitos()
-            for nivel in requisitos:
-                print("\t\tNivel: ",nivel , "Requisitos: ",requisitos[nivel])
-            print("\tRequisito Prooritario:",rs[codigo].getRequisitoPrioritario())
-            print("\t\tEquivalentes: ", rs[codigo].getAsignaturasEquivalentes())
-
-    def estimarAsignaturas(self, asignaturas, tipoEstimacion, datosHistoricos, datosPeriodoAnterior, ponderacionValoresHistoricos, ponderacionValoresPeriodoAnterior):
+    def estimarAsignaturas(self, asignaturas, tipoEstimacion, datosHistoricos, datosPeriodoBase, datosPeriodoAnterior, ponderacionValoresHistoricos, ponderacionValoresPeriodoAnterior):
         resultados = {}
         for codigoAsignatura in asignaturas:
             asignatura = asignaturas[codigoAsignatura]
@@ -200,13 +189,13 @@ class ControladorEstimacion():
                     } 
             else:
                 if tipoEstimacion == 1:
-                    resultado = self.estimarAsignaturaPriori(asignatura, self.asignaturas, datosHistoricos, datosPeriodoAnterior, ponderacionValoresHistoricos, ponderacionValoresPeriodoAnterior)
+                    resultado = self.estimarAsignaturaPriori(asignatura, self.asignaturas, datosHistoricos, datosPeriodoBase, datosPeriodoAnterior, ponderacionValoresHistoricos, ponderacionValoresPeriodoAnterior)
                 else:
-                    resultado = self.estimarAsignaturaPosteriori(asignatura, self.asignaturas, datosHistoricos, datosPeriodoAnterior)
+                    resultado = self.estimarAsignaturaPosteriori(asignatura, self.asignaturas, datosHistoricos, datosPeriodoBase)
             resultados[codigoAsignatura] = resultado
         return resultados
 
-    def estimarAsignaturaPriori(self, asignatura, asignaturas, datosHistoricos, datosPeriodoAnterior, ponderacionValoresHistoricos, ponderacionValoresPeriodoAnterior):
+    def estimarAsignaturaPriori(self, asignatura, asignaturas, datosHistoricos, datosPeriodoBase, datosPeriodoAnterior, ponderacionValoresHistoricos, ponderacionValoresPeriodoAnterior):
         codigoAsignatura = asignatura.getCodigo()
         nombreAsignatura = asignatura.getNombre()
         requisitoPrioritario = asignatura.getRequisitoPrioritario()
@@ -268,17 +257,17 @@ class ControladorEstimacion():
 
         alumnosDisponiblesInscripcion = self.obtenerDisponiblesInscripcion(codigoAsignatura, asignaturas, datosPeriodoAnterior, datosHistoricos)
 
-        inscritosTeoria = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "inscritosTeoria")
+        inscritosTeoria = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoBase, "inscritosTeoria")
         tasaReprobacionTeoria = ponderacionValoresHistoricos * (1 - datosHistoricos[codigoAsignatura]["tasaAprobacionTeoria"]) + ponderacionValoresPeriodoAnterior * (1 - datosPeriodoAnterior[codigoAsignatura]["tasaAprobacionTeoria"])
-        inscritosTeoriaRequisitos= self.obtenerCantidadAlumnoPeriodo(requisitoPrioritario, asignaturas, datosPeriodoAnterior, "inscritosTeoria")
+        inscritosTeoriaRequisitos= self.obtenerCantidadAlumnoPeriodo(requisitoPrioritario, asignaturas, datosPeriodoBase, "inscritosTeoria")
         tasaAprobacionTeoriaRequisito = ponderacionValoresHistoricos * datosHistoricos[requisitoPrioritario]["tasaAprobacionTeoria"] + ponderacionValoresPeriodoAnterior * datosPeriodoAnterior[requisitoPrioritario]["tasaAprobacionTeoria"]
 
         alumnosReprobadosAsignaturaTeoria = inscritosTeoria * tasaReprobacionTeoria
         alumnosAprobadosRequisitoPrioritarioTeoria = inscritosTeoriaRequisitos * tasaAprobacionTeoriaRequisito
 
-        inscritosLaboratorio = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "inscritosLaboratorio")
+        inscritosLaboratorio = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoBase, "inscritosLaboratorio")
         tasaReprobacionLaboratorio = ponderacionValoresHistoricos * (1 - datosHistoricos[codigoAsignatura]["tasaAprobacionLaboratorio"]) + ponderacionValoresPeriodoAnterior * (1 - datosPeriodoAnterior[codigoAsignatura]["tasaAprobacionLaboratorio"])
-        inscritosLaboratorioRequisitos= self.obtenerCantidadAlumnoPeriodo(requisitoPrioritario, asignaturas, datosPeriodoAnterior, "inscritosLaboratorio")
+        inscritosLaboratorioRequisitos = self.obtenerCantidadAlumnoPeriodo(requisitoPrioritario, asignaturas, datosPeriodoBase, "inscritosLaboratorio")
         tasaAprobacionLaboratorioRequisito = ponderacionValoresHistoricos * datosHistoricos[requisitoPrioritario]["tasaAprobacionLaboratorio"] + ponderacionValoresPeriodoAnterior * datosPeriodoAnterior[requisitoPrioritario]["tasaAprobacionLaboratorio"]
 
         alumnosReprobadosAsignaturaLaboratorio = inscritosLaboratorio * tasaReprobacionLaboratorio
@@ -308,7 +297,7 @@ class ControladorEstimacion():
                 return True, codigoAsignatura
         return False, None
 
-    def estimarAsignaturaPosteriori(self, asignatura, asignaturas, datosHistoricos, datosPeriodoAnterior):
+    def estimarAsignaturaPosteriori(self, asignatura, asignaturas, datosHistoricos, datosPeriodoBase):
         codigoAsignatura = asignatura.getCodigo()
         nombreAsignatura = asignatura.getNombre()
         requisitoPrioritario = asignatura.getRequisitoPrioritario()
@@ -345,7 +334,7 @@ class ControladorEstimacion():
                 "observaciones": "Estimación no realizada, requisito prioritario pertenece al módulo básico de ingeniería."
                 } 
             return resultado
-        if (requisitoPrioritario not in datosPeriodoAnterior) or (requisitoPrioritario not in datosHistoricos):
+        if (requisitoPrioritario not in datosPeriodoBase) or (requisitoPrioritario not in datosHistoricos):
             resultado = {
                 "codigo": codigoAsignatura,
                 "nombre": nombreAsignatura,
@@ -356,7 +345,7 @@ class ControladorEstimacion():
                 "observaciones": "Estimación no realizada, faltan estadísticas curriculares de los requisitos para estimar esta asignatura."
                 } 
             return resultado
-        if (codigoAsignatura not in datosPeriodoAnterior) or (codigoAsignatura not in datosHistoricos):
+        if (codigoAsignatura not in datosPeriodoBase) or (codigoAsignatura not in datosHistoricos):
             resultado = {
                 "codigo": codigoAsignatura,
                 "nombre": nombreAsignatura,
@@ -367,7 +356,7 @@ class ControladorEstimacion():
                 "observaciones": "Estimación no realizada, faltan estadísticas curriculares para estimar esta asignatura."
                 } 
             return resultado
-        if ("aprobadosTeoria" not in datosPeriodoAnterior[codigoAsignatura]) or ("aprobadosLaboratorio" not in datosPeriodoAnterior[codigoAsignatura]):
+        if ("aprobadosTeoria" not in datosPeriodoBase[codigoAsignatura]) or ("aprobadosLaboratorio" not in datosPeriodoBase[codigoAsignatura]):
             resultado = {
                 "codigo": codigoAsignatura,
                 "nombre": nombreAsignatura,
@@ -378,7 +367,7 @@ class ControladorEstimacion():
                 "observaciones": "Estimación no realizada, faltan estadísticas curriculares de aprobación para estimar esta asignatura."
                 } 
             return resultado
-        if ("aprobadosTeoria" not in datosPeriodoAnterior[requisitoPrioritario]) or ("aprobadosLaboratorio" not in datosPeriodoAnterior[requisitoPrioritario]):
+        if ("aprobadosTeoria" not in datosPeriodoBase[requisitoPrioritario]) or ("aprobadosLaboratorio" not in datosPeriodoBase[requisitoPrioritario]):
             resultado = {
                 "codigo": codigoAsignatura,
                 "nombre": nombreAsignatura,
@@ -390,13 +379,13 @@ class ControladorEstimacion():
                 } 
             return resultado
 
-        alumnosDisponiblesInscripcion = self.obtenerDisponiblesInscripcion(codigoAsignatura, asignaturas,  datosHistoricos, datosPeriodoAnterior)
+        alumnosDisponiblesInscripcion = self.obtenerDisponiblesInscripcion(codigoAsignatura, asignaturas,  datosHistoricos, datosPeriodoBase)
 
-        alumnosReprobadosAsignaturaTeoria = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "reprobadosTeoria")
-        alumnosAprobadosTeoriaRequisito = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "aprobadosTeoria")
+        alumnosReprobadosAsignaturaTeoria = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoBase, "reprobadosTeoria")
+        alumnosAprobadosTeoriaRequisito = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoBase, "aprobadosTeoria")
 
-        alumnosReprobadosAsignaturaLaboratorio = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "reprobadosLaboratorio")
-        alumnosAprobadosLaboratorioRequisito = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoAnterior, "aprobadosLaboratorio")
+        alumnosReprobadosAsignaturaLaboratorio = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoBase, "reprobadosLaboratorio")
+        alumnosAprobadosLaboratorioRequisito = self.obtenerCantidadAlumnoPeriodo(codigoAsignatura, asignaturas, datosPeriodoBase, "aprobadosLaboratorio")
 
         estimadosTeoria = math.ceil(alumnosDisponiblesInscripcion + alumnosReprobadosAsignaturaTeoria + alumnosAprobadosTeoriaRequisito)
         estimadosLaboratorio = math.ceil(alumnosDisponiblesInscripcion + alumnosReprobadosAsignaturaLaboratorio + alumnosAprobadosLaboratorioRequisito)
@@ -414,7 +403,7 @@ class ControladorEstimacion():
             } 
         return resultado
 
-    def obtenerCantidadAlumnoPeriodo(self, codigoAsignatura, asignaturas, datosPeriodoAnterior, flagTipo):
+    def obtenerCantidadAlumnoPeriodo(self, codigoAsignatura, asignaturas, datosPeriodo, flagTipo):
         asignatura = asignaturas[codigoAsignatura]
         if self.perteneceMBI(codigoAsignatura):
             return 0
@@ -422,10 +411,11 @@ class ControladorEstimacion():
         asignaturasEquivalentes.append(codigoAsignatura)
         total = 0
         for codigoAsignaturaEquivalente in asignaturasEquivalentes:
-            total += datosPeriodoAnterior[codigoAsignaturaEquivalente][flagTipo]
+            if codigoAsignaturaEquivalente in datosPeriodo:
+                total += datosPeriodo[codigoAsignaturaEquivalente][flagTipo]
         return total
         
-    def obtenerDisponiblesInscripcion(self, codigoAsignatura, asignaturas, datosPeriodoAnterior, datosHistoricos):
+    def obtenerDisponiblesInscripcion(self, codigoAsignatura, asignaturas, datosPeriodo, datosHistoricos):
         asignatura = asignaturas[codigoAsignatura]
         if self.perteneceMBI(codigoAsignatura):
             return 0
@@ -433,20 +423,20 @@ class ControladorEstimacion():
         asignaturasEquivalentes.append(codigoAsignatura)
         disponibles = 0
         for codigoAsignatura in asignaturasEquivalentes:
-            if not (codigoAsignatura in datosPeriodoAnterior and codigoAsignatura in datosHistoricos):
+            if not (codigoAsignatura in datosPeriodo and codigoAsignatura in datosHistoricos):
                 disponibles += 0
-            if not ("inscritosTeoria" in datosPeriodoAnterior[codigoAsignatura] and "tasaDesinscripcion" in datosHistoricos[codigoAsignatura]):
+            if not ("inscritosTeoria" in datosPeriodo[codigoAsignatura] and "tasaDesinscripcion" in datosHistoricos[codigoAsignatura]):
                 disponibles += 0
             else:
-                cantidadDesinscribe = datosPeriodoAnterior[codigoAsignatura]["inscritosTeoria"] * datosHistoricos[codigoAsignatura]["tasaDesinscripcion"]
+                cantidadDesinscribe = datosPeriodo[codigoAsignatura]["inscritosTeoria"] * datosHistoricos[codigoAsignatura]["tasaDesinscripcion"]
                 disponibles += cantidadDesinscribe
         return disponibles
 
-    def determinarRequisitosPrioritarios(self, asignaturas, datosPeriodoAnterior, datosHistoricos):
+    def determinarRequisitosPrioritarios(self, asignaturas, datosPeriodoBase, datosHistoricos):
         asignaturasRequisitoDefinido = {}
         for codigoAsignatura in asignaturas:
             asignatura = asignaturas[codigoAsignatura]
-            asignaturasRequisitoDefinido[codigoAsignatura] = self.definirRequisitoPrioritario(codigoAsignatura, asignatura, datosPeriodoAnterior, datosHistoricos)
+            asignaturasRequisitoDefinido[codigoAsignatura] = self.definirRequisitoPrioritario(codigoAsignatura, asignatura, datosPeriodoBase, datosHistoricos)
         return asignaturasRequisitoDefinido
 
     def validarParametrosEstimacion(self, ano, periodo, tipoEstimacion, ponderacionValoresHistoricos, ponderacionValoresPeriodoAnterior):

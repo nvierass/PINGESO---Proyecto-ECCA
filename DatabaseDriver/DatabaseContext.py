@@ -234,7 +234,7 @@ class DatabaseContext():
         if self.conn == None:
             return None
         else:
-            queryAsignaturas = "select * from asignatura;"
+            queryAsignaturas = "select * from asignatura Order by codigo;"
             self.cursor.execute(queryAsignaturas)
             resultados = self.cursor.fetchall()
             asignaturas = {}

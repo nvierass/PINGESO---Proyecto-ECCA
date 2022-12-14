@@ -210,6 +210,17 @@ class ControladorEstimacion():
         codigoAsignatura = asignatura.getCodigo()
         nombreAsignatura = asignatura.getNombre()
         requisitoPrioritario = asignatura.getRequisitoPrioritario()
+        if self.esElectivo(asignatura):
+            resultado = {
+                "codigo": codigoAsignatura,
+                "nombre": nombreAsignatura,
+                "estimadosTeoria": 0,
+                "estimadosLaboratorio": 0,
+                "coordinacionesTeoria": 0,
+                "coordinacionesLaboratorio": 0,
+                "observaciones": "Estimación no realizada, asignaturas de naturaleza electivos o tópicos no son considerados validos para estimación."
+                } 
+            return resultado
         if self.perteneceMBI(codigoAsignatura):
             resultado = {
                 "codigo": codigoAsignatura,
@@ -285,7 +296,8 @@ class ControladorEstimacion():
             "estimadosLaboratorio": estimadosLaboratorio,
             "coordinacionesTeoria": coordinacionesTeoria,
             "coordinacionesLaboratorio": coordinacionesLaboratorio,
-            "observaciones": ""
+            "observaciones":    "Contribuciones Teoría: Disponibles = " + str(math.ceil(alumnosDisponiblesInscripcion)) + ", Reprobados = " + str(math.ceil(alumnosReprobadosAsignaturaTeoria)) + ", Aprobados Requisito = " + str(math.ceil(alumnosAprobadosRequisitoPrioritarioTeoria)) + ".\n" + \
+                                "Contribuciones Laboratorio: Disponibles = " + str(math.ceil(alumnosDisponiblesInscripcion)) + ", Reprobados = " + str(math.ceil(alumnosReprobadosAsignaturaLaboratorio)) + ", Aprobados Requisito = " + str(math.ceil(alumnosAprobadosRequisitoPrioritarioLaboratorio)) + "."
             } 
         return resultado
 
@@ -300,6 +312,17 @@ class ControladorEstimacion():
         codigoAsignatura = asignatura.getCodigo()
         nombreAsignatura = asignatura.getNombre()
         requisitoPrioritario = asignatura.getRequisitoPrioritario()
+        if self.esElectivo(asignatura):
+            resultado = {
+                "codigo": codigoAsignatura,
+                "nombre": nombreAsignatura,
+                "estimadosTeoria": 0,
+                "estimadosLaboratorio": 0,
+                "coordinacionesTeoria": 0,
+                "coordinacionesLaboratorio": 0,
+                "observaciones": "Estimación no realizada, asignaturas de naturaleza electivos o tópicos no son considerados validos para estimación."
+                } 
+            return resultado
         if self.perteneceMBI(codigoAsignatura):
             resultado = {
                 "codigo": codigoAsignatura,
@@ -506,5 +529,10 @@ class ControladorEstimacion():
         if codigo < 13000:
             return True
         if codigo in codigosMBI:
+            return True
+        return False
+
+    def esElectivo(self, asignatura):
+        if asignatura.getTipoAsignatura() == "Electivo":
             return True
         return False

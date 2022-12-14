@@ -50,4 +50,4 @@ for estadistica in rs:
     print(estadistica)
 '''
 
-print(db.getIdPlan())
+print(db.obtenerEstadisticasAsignatura(10101))

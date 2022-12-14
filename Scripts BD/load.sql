@@ -48,28 +48,28 @@ INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13322,'Métodos de Optimizaci
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13323,'Redes de Comunicación','Teoría y Laboratorio');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13324,'Gestión de Proyectos TI','Teoría');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13325,'Innovación y Emprendimiento','Teoría');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13326,'Formación Integral 1','Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13326,'Formación Integral 1','Electivo');
 
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13327,'Análisis de Datos','Teoría y Laboratorio');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13328,'Ciberseguridad','Teoría y Laboratorio');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13329,'Sistemas Distribuidos y Paralelos','Teoría y Laboratorio');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13330,'Gestión de Empresas TI','Teoría');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13331,'Proyecto de Ingeniería de Software','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13332,'Formación Integral 2','Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13332,'Formación Integral 2','Electivo');
 
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13333,'Aprendizaje Automático','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13334,'Tópico de Especialidad 1','Teoría');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13335,'Tópico de Especialidad 2','Teoría');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13334,'Tópico de Especialidad 1','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13335,'Tópico de Especialidad 2','Electivo');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13336,'Gobernanza y Gestión TI','Teoría');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13337,'Electivo 1','Teoría y Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13337,'Electivo 1','Electivo');
 
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13338,'Seminario de Informática','Teoría');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13339,'Tópico de Especialidad 3','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13340,'Tópico de Especialidad 4','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13341,'Electivo Interdisciplinario','Teoría');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13342,'Electivo 2','Teoría y Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13339,'Tópico de Especialidad 3','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13340,'Tópico de Especialidad 4','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13341,'Electivo Interdisciplinario','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13342,'Electivo 2','Electivo');
 
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13343,'Trabajo de Titulación','Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13343,'Trabajo de Titulación','Electivo');
 
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (10101,'Cálculo 1 para Ingeniería','Teoría');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (10102,'Álgebra 1 para Ingeniería','Teoría');
@@ -127,19 +127,19 @@ INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13228,'Sistemas distribuidos'
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13229,'Evaluación de proyectos','Teoría y Laboratorio');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13230,'Taller de ingeniería de software','Teoría y Laboratorio');
 
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13231,'Tópicos de especialidad 1','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13232,'Tópicos de especialidad 2','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13233,'Tópicos de especialidad 3','Teoría y Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13231,'Tópicos de especialidad 1','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13232,'Tópicos de especialidad 2','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13233,'Tópicos de especialidad 3','Electivo');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13234,'Seguridad y auditoría informática','Teoría y Laboratorio');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13235,'Proyecto de ingeniería informática','Laboratorio');
 
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13236,'Tópicos de especialidad 4','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13237,'Tópicos de especialidad 5','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13238,'Tópicos de especialidad 6','Teoría y Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13236,'Tópicos de especialidad 4','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13237,'Tópicos de especialidad 5','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13238,'Tópicos de especialidad 6','Electivo');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13239,'Dirección y gestión de empresas','Teoría y Laboratorio');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13285,'Seminario de informática','Teoría y Laboratorio');
 
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13286,'Trabajo de titulación','Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13286,'Trabajo de titulación','Electivo');
 
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (10123,'Ecuaciones diferenciales y Métodos Numéricos para Ingeniería','Teoría');
 
@@ -158,12 +158,12 @@ INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13265,'Técnicas de Ingenier�
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13266,'Redes computacionales','Teoría y Laboratorio');
 
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13267,'Proyecto de ingeniería de software','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13268,'Tópicos de especialidad 1','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13269,'Tópicos de especialidad 2','Teoría y Laboratorio');
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13270,'Tópicos de especialidad 3','Teoría y Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13268,'Tópicos de especialidad 1','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13269,'Tópicos de especialidad 2','Electivo');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13270,'Tópicos de especialidad 3','Electivo');
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13276,'Seminario de computación e informática','Teoría y Laboratorio');
 
-INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13277,'Trabajo de titulación','Laboratorio');
+INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13277,'Trabajo de titulación','Electivo');
 
 
 --Civil 2019

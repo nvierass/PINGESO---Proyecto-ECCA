@@ -32,7 +32,7 @@ class ControladorPrincipal():
         self.vistaPrincipal.actualizarTitulo()
         self.vistaPrincipal.setPlanesRegitrados(planesRegistrados)
         self.GUI.addWidget(self.vistaPrincipal)
-        self.GUI.show()
+        self.GUI.showMaximized()
 
     def actualizarVista(self):
         planesRegistrados = self.databaseContext.obtenerPlanes()

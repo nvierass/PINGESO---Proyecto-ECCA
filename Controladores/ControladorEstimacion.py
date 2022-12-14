@@ -176,7 +176,7 @@ class ControladorEstimacion():
         for codigoAsignatura in asignaturas:
             asignatura = asignaturas[codigoAsignatura]
             resultado = {}
-            estimadaAnteriormente, codigoEstimada = self.estimadaAnteriormente(asignatura, self.resultadosEstimacion)
+            estimadaAnteriormente, codigoEstimada = self.estimadaAnteriormente(asignatura, resultados)
             if estimadaAnteriormente:
                 resultado = {
                     "codigo": codigoAsignatura,
@@ -399,8 +399,9 @@ class ControladorEstimacion():
             "estimadosLaboratorio": estimadosLaboratorio,
             "coordinacionesTeoria": coordinacionesTeoria,
             "coordinacionesLaboratorio": coordinacionesLaboratorio,
-            "observaciones": ""
-            } 
+            "observaciones":    "Contribuciones Teoría: Disponibles = " + str(math.ceil(alumnosDisponiblesInscripcion)) + ", Reprobados = " + str(math.ceil(alumnosReprobadosAsignaturaTeoria)) + ", Aprobados Requisito = " + str(math.ceil(alumnosAprobadosTeoriaRequisito)) + ".\n" + \
+                                "Contribuciones Laboratorio: Disponibles = " + str(math.ceil(alumnosDisponiblesInscripcion)) + ", Reprobados = " + str(math.ceil(alumnosReprobadosAsignaturaLaboratorio)) + ", Aprobados Requisito = " + str(math.ceil(alumnosAprobadosLaboratorioRequisito)) + "."
+            }
         return resultado
 
     def obtenerCantidadAlumnoPeriodo(self, codigoAsignatura, asignaturas, datosPeriodo, flagTipo):
@@ -423,10 +424,14 @@ class ControladorEstimacion():
         asignaturasEquivalentes.append(codigoAsignatura)
         disponibles = 0
         for codigoAsignatura in asignaturasEquivalentes:
-            if not (codigoAsignatura in datosPeriodo and codigoAsignatura in datosHistoricos):
-                disponibles += 0
-            if not ("inscritosTeoria" in datosPeriodo[codigoAsignatura] and "tasaDesinscripcion" in datosHistoricos[codigoAsignatura]):
-                disponibles += 0
+            if not codigoAsignatura in datosPeriodo:
+                pass
+            elif not codigoAsignatura in datosHistoricos:
+                pass
+            elif not "inscritosTeoria" in datosPeriodo[codigoAsignatura]:
+                pass
+            elif not "tasaDesinscripcion" in datosHistoricos[codigoAsignatura]:
+                pass
             else:
                 cantidadDesinscribe = datosPeriodo[codigoAsignatura]["inscritosTeoria"] * datosHistoricos[codigoAsignatura]["tasaDesinscripcion"]
                 disponibles += cantidadDesinscribe
@@ -526,3 +531,16 @@ class ControladorEstimacion():
         if asignatura.getTipoAsignatura() == "Electivo":
             return True
         return False
+
+    def mostrarAsignaturas(self):
+        rs = self.asignaturas
+        for codigo in rs:
+            print("\nAsignatura:", rs[codigo].getCodigo())
+            print("\tNombre:",rs[codigo].getNombre())
+            print("\tRequisitos:")
+            requisitos = rs[codigo].getAsignaturasRequisitos()
+            for nivel in requisitos:
+                print("\t\tNivel: ",nivel , "Requisitos: ",requisitos[nivel])
+            print("\tRequisito Prioritario:",rs[codigo].getRequisitoPrioritario())
+            print("\t\tEquivalentes: ", rs[codigo].getAsignaturasEquivalentes())
+

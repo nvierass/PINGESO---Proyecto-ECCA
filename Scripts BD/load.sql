@@ -165,6 +165,61 @@ INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13276,'Seminario de computaci
 
 INSERT INTO Asignatura(codigo,nombre,tipo) VALUES (13277,'Trabajo de titulación','Electivo');
 
+--Equivalencias
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13287,13301);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13301,13287);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13204,13310);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13310,13204);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13210,13306);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13306,13210);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13280,13274);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13280,13308);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13274,13280);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13274,13308);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13308,13280);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13308,13274);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13279,13252);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13252,13279);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13278,13273);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13273,13278);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13281,13275);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13275,13281);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13283,13316);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13316,13283);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13209,13314);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13314,13209);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13212,13313);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13313,13212);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13215,13317);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13317,13215);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13220,13265);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13220,13319);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13265,13220);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13265,13319);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13319,13220);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13319,13265);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13221,13322);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13322,13221);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13227,13321);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13321,13227);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13230,13267);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13230,13331);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13267,13230);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13267,13331);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13331,13230);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13331,13267);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13222,13327);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13327,13222);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13217,13323);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13323,13217);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13229,13320);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13320,13229);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13228,13329);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13329,13228);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13233,13328);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13328,13233);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13285,13338);
+INSERT INTO analoga(cod_asignatura, cod_asignatura_analoga) values (13338,13285);
 
 --Civil 2019
 --Nivel 2

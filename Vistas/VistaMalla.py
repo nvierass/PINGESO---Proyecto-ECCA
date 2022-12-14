@@ -19,6 +19,9 @@ class VistaMalla(QMainWindow):
         self.codigoAsignaturaSeleccionada = None
         self.codigoAsignaturaEdicion = None
         self.resultados = {}
+        self.botones = {}
+        self.requisitos_seleccionado = []
+        self.botones_deshabilitados = []
 
     def mostrarAlerta(self,titulo,texto):
         QMessageBox.information(self, titulo, texto)
@@ -104,21 +107,27 @@ class VistaMalla(QMainWindow):
                 nombre = self.asignaturas[codigoAsignatura].getNombre()
                 nombreAux = nombre
                 nombre = self.ajustarNombreAsignatura(nombre)
-                self.boton = QtWidgets.QPushButton()
-                self.boton.setObjectName(str(codigoAsignatura))
-                self.Malla.addWidget(self.boton, fila, columna)
-                self.boton.setText(str(codigoAsignatura)+"\n"+nombre)
+                boton = QtWidgets.QPushButton()
+                boton.setObjectName(str(codigoAsignatura))
+                self.Malla.addWidget(boton, fila, columna)
+                boton.setText(str(codigoAsignatura)+"\n"+nombre)
                 if self.perteneceMBI(codigoAsignatura):
-                    self.boton.setEnabled(False)
-                    self.boton.setStyleSheet("background-color: #c1c1c0")
+                    boton.setEnabled(False)
+                    boton.setStyleSheet("background-color: #c1c1c0")
+                    self.botones_deshabilitados.append(boton)
                 else:
-                    self.boton.clicked.connect(partial(self.mostrarDatosAsignatura, codigoAsignatura, self.boton))
-                    self.setTabOrder(botonReferencial,self.boton)
-                    botonReferencial = self.boton
+                    boton.clicked.connect(partial(self.mostrarDatosAsignatura, codigoAsignatura, boton))
+                    self.setTabOrder(botonReferencial,boton)
+                    botonReferencial = boton
+                # Se agrega el boton al diccionario de botones de asignaturas de la vista
+                if nivel not in self.botones:
+                    self.botones[nivel] = []
+                self.botones[nivel].append(boton)
+                
                 fila += 1
             columna += 1
             fila = 1
-        self.setTabOrder(self.boton, self.button_editar_pa)
+        self.setTabOrder(boton, self.button_editar_pa)
         for x in range(0, nivelesPlan):
             self.label = QtWidgets.QLabel()
             self.Malla.addWidget(self.label, 0, x)
@@ -253,4 +262,27 @@ class VistaMalla(QMainWindow):
         
 
     def resaltarRequisitos(self, asignatura):
-        aux = 0
+        # Se quita el resalte anteriormente dado a los botones
+        for boton in self.requisitos_seleccionado:
+            if boton != self.seleccionado:
+                boton.setStyleSheet("")
+            if boton in self.botones_deshabilitados:
+                boton.setStyleSheet("background-color: #c1c1c0")
+        self.requisitos_seleccionado = []
+        # Se resaltan los botones requisitos
+        botones = self.botones
+        requisitos_por_nivel = asignatura.getAsignaturasRequisitos()
+        for nivel in requisitos_por_nivel:
+            for boton in botones[nivel]:
+                codigo = int(boton.objectName())
+                if codigo in requisitos_por_nivel[nivel]:
+                    self.requisitos_seleccionado.append(boton)
+                    if boton not in self.botones_deshabilitados:
+                        boton.setStyleSheet(".QPushButton {\n"
+                                    "    color: white;\n"
+                                    "    background: #083C87;\n"
+                                    "}")
+                    else:
+                        boton.setStyleSheet(".QPushButton {\n"
+                                    "    background: #083C87;\n"
+                                    "}")

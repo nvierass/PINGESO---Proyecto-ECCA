@@ -95,6 +95,8 @@ class ControladorEstimacion():
         guardadoExitoso = self.generarReporte(nombreArchivoSalida)
         if not guardadoExitoso:
             self.vistaResultados.mostrarAlerta("Error","No se ha logrado exportar los resultados.")
+            return
+        self.vistaResultados.mostrarAlerta("Exito","Se han exportado los resultados exitosamente.")
 
     def generarReporte(self, nombre):
         try:

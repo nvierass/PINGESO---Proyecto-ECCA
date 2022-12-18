@@ -1,6 +1,6 @@
 import unittest
 import math
-
+from Modelos.Plan import Plan
 
 
 class TestCoordinacionesMethods(unittest.TestCase):

@@ -7,7 +7,7 @@ class VistaEstimacion(QMainWindow):
 
     def __init__(self, controladorEstimacion):
         super(VistaEstimacion, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/estimar.ui"), self)       
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaEstimacion.ui"), self)       
 
         self.button_cancel.clicked.connect(controladorEstimacion.volverContextoPrincipal)
         self.button_ok.clicked.connect(controladorEstimacion.inicializarEstimacion)

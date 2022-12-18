@@ -7,7 +7,7 @@ class VistaCupos(QMainWindow):
     
     def __init__(self, controladorEstimacion):
         super(VistaCupos, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/cupos.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaCupos.ui"), self)
 
         self.controladorEstimacion = controladorEstimacion
         self.label.setText("Cupos de coordinaciones")
@@ -72,6 +72,7 @@ class VistaCupos(QMainWindow):
         self.pushButton.setAccessibleName("button_editar_"+str(indexFila))
         self.pushButton.setAccessibleDescription("0")
         self.pushButton.setText("Editar")
+        self.pushButton.setStyleSheet('QPushButton {color: black}')
         self.pushButton.clicked.connect(partial(self.botonEditarClicked, self.pushButton))
         self.gridLayout.addWidget(self.pushButton, indexFila, 4)
     
@@ -117,6 +118,7 @@ class VistaCupos(QMainWindow):
             label_codigo.setStyleSheet("")
             idBoton.setStyleSheet("")
             idBoton.setText("Editar")
+            idBoton.setStyleSheet('QPushButton {color: black}')
             spinbox_1.setButtonSymbols(QAbstractSpinBox.NoButtons)
             spinbox_1.setReadOnly(True)
             spinbox_2.setButtonSymbols(QAbstractSpinBox.NoButtons)

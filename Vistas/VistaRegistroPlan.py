@@ -6,7 +6,7 @@ class VistaRegistroPlan(QMainWindow):
 
     def __init__(self, controladorRegistroPlan):
         super(VistaRegistroPlan, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/registrar_plan.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaRegistroPlan.ui"), self)
 
         self.controladorRegistroPlan = controladorRegistroPlan
 

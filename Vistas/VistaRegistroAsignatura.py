@@ -6,7 +6,7 @@ class VistaRegistroAsignatura(QMainWindow):
 
     def __init__(self, controladorRegistroPlan):
         super(VistaRegistroAsignatura, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/registrar_asignatura.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaRegistroAsignatura.ui"), self)
 
         self.controladorRegistroPlan = controladorRegistroPlan
         self.button_volver.clicked.connect(self.controladorRegistroPlan.mostrarVistaRegistroPlan)

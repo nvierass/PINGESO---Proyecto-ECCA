@@ -7,7 +7,7 @@ class VistaActualizarPeriodo(QMainWindow):
 
     def __init__(self, controladorPrincipal):
         super(VistaActualizarPeriodo, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/actualizacionPeriodo.ui"), self)       
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaActualizarPeriodo.ui"), self)       
 
         self.button_cancel.clicked.connect(controladorPrincipal.mostrarVistaPrincipal)
         self.button_ok.clicked.connect(controladorPrincipal.actualizarPeriodo)

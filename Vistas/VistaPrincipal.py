@@ -7,7 +7,7 @@ class VistaPrincipal(QMainWindow):
   
     def __init__(self, controladorPrincipal):
         super(VistaPrincipal, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/main.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaPrincipal.ui"), self)
 
         self.controladorPrincipal = controladorPrincipal
 

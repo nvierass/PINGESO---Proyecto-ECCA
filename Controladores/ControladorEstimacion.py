@@ -92,6 +92,9 @@ class ControladorEstimacion():
 
     def exportarResultados(self):
         nombreArchivoSalida = self.vistaResultados.getPathResultados()
+        if nombreArchivoSalida == "":
+            print("Se ha cancelado la exportación.")
+            return
         guardadoExitoso = self.generarReporte(nombreArchivoSalida)
         if not guardadoExitoso:
             self.vistaResultados.mostrarAlerta("Error","No se ha logrado exportar los resultados.")

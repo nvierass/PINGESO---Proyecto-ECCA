@@ -8,7 +8,7 @@ class VistaMalla(QMainWindow):
 
     def __init__(self, controladorMallaInteractiva):
         super(VistaMalla, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/malla.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaMalla.ui"), self)
 
         self.controladorMallaInteractiva = controladorMallaInteractiva
         self.button_volver.clicked.connect(self.controladorMallaInteractiva.volverContextoPrincipal)

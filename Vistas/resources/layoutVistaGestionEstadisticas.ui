@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1193</width>
+    <width>1428</width>
     <height>916</height>
    </rect>
   </property>
@@ -232,7 +232,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1173</width>
+         <width>1408</width>
          <height>617</height>
         </rect>
        </property>
@@ -241,7 +241,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>1171</width>
+          <width>1382</width>
           <height>621</height>
          </rect>
         </property>
@@ -256,6 +256,12 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
            </property>
            <property name="text">
             <string>Aprobados Laboratorio</string>
@@ -273,6 +279,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Inscritos Laboratorio</string>
            </property>
@@ -289,6 +301,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Reprobados Laboratorio</string>
            </property>
@@ -301,9 +319,15 @@
           <widget class="QLabel" name="label_3">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
+             <horstretch>120</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
            </property>
            <property name="text">
             <string>Tasa Aprobación Laboratorio</string>
@@ -321,6 +345,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Reprobados Teoría</string>
            </property>
@@ -336,6 +366,12 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
            </property>
            <property name="text">
             <string>Año</string>
@@ -353,6 +389,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Inscritos Teoría</string>
            </property>
@@ -368,6 +410,12 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
            </property>
            <property name="text">
             <string>Semestre</string>
@@ -385,6 +433,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Tasa Aprobación Teoría</string>
            </property>
@@ -401,6 +455,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Tasa Desinscripción</string>
            </property>
@@ -416,6 +476,12 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>0</height>
+            </size>
            </property>
            <property name="text">
             <string>Aprobados Teoría</string>
@@ -471,7 +537,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1193</width>
+     <width>1428</width>
      <height>21</height>
     </rect>
    </property>

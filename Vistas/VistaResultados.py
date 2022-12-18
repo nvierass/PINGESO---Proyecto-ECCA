@@ -6,7 +6,7 @@ class VistaResultados(QMainWindow):
 
     def __init__(self, controladorEstimacion):
         super(VistaResultados, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/table.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaResultados.ui"), self)
 
         self.controladorEstimacion = controladorEstimacion
         self.label_titulo.setText("Resultados de la estimación")

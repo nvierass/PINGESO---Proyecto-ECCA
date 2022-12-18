@@ -7,7 +7,7 @@ class VistaGestionEstadisticas(QMainWindow):
     
     def __init__(self, controladorGestionEstadisticas):
         super(VistaGestionEstadisticas, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/vistaGestionEstadisticas.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaGestionEstadisticas.ui"), self)
         
         self.controladorGestionEstadisticas = controladorGestionEstadisticas
         self.comboBoxAsignaturas.currentIndexChanged.connect(self.controladorGestionEstadisticas.actualizarTabla)
@@ -220,7 +220,7 @@ class VistaGestionEstadisticas(QMainWindow):
         self.editandoEstadistica = True
         self.codigoAsignaturaEdicion = self.codigo
         referenciaInputs = self.referenciasFilas[fila]
-        for i in range(0,11):
+        for i in range(2,11):
             referenciaInputs[i].setEnabled(True)
         botonEditar = referenciaInputs[11]
         botonEliminar = referenciaInputs[12]
@@ -239,7 +239,7 @@ class VistaGestionEstadisticas(QMainWindow):
         self.comboBoxAsignaturas.setEnabled(True)
         self.editandoEstadistica = False
         referenciaInputs = self.referenciasFilas[fila]
-        for i in range(0,11):
+        for i in range(2,11):
             referenciaInputs[i].setEnabled(False)
         botonEditar = referenciaInputs[11]
         botonEliminar = referenciaInputs[12]

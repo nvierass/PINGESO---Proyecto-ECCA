@@ -7,7 +7,7 @@ class VistaLecturaPlanilla(QMainWindow):
 
     def __init__(self, controladorLecturaPlanilla):
         super(VistaLecturaPlanilla, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/load.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaLecturaPlanilla.ui"), self)
 
         self.controladorLecturaPlanilla = controladorLecturaPlanilla
 

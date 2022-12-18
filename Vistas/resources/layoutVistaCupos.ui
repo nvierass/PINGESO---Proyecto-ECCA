@@ -156,13 +156,13 @@
            <widget class="QLabel" name="label_8">
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>350</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>60</width>
+              <width>400</width>
               <height>16777215</height>
              </size>
             </property>
@@ -176,7 +176,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Código</string>
+             <string>Nombre asignatura</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -213,7 +213,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Cupos cátedra</string>
+             <string>Cupos teoría</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -224,13 +224,13 @@
            <widget class="QLabel" name="label_7">
             <property name="minimumSize">
              <size>
-              <width>350</width>
+              <width>150</width>
               <height>50</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>400</width>
+              <width>200</width>
               <height>60</height>
              </size>
             </property>
@@ -244,7 +244,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Nombre asignatura</string>
+             <string>Código asignatura</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>

@@ -9,19 +9,19 @@ class VistaMalla(QMainWindow):
     def __init__(self, controladorMallaInteractiva):
         super(VistaMalla, self).__init__()
         uic.loadUi(os.path.join(os.path.dirname(__file__), "resources/layoutVistaMalla.ui"), self)
-
         self.controladorMallaInteractiva = controladorMallaInteractiva
         self.button_volver.clicked.connect(self.controladorMallaInteractiva.volverContextoPrincipal)
         self.button_estimar_1.clicked.connect(self.controladorMallaInteractiva.realizarEstimacionPriori)
         self.button_estimar_2.clicked.connect(self.controladorMallaInteractiva.realizarEstimacionPosteriori)
         self.button_editar_pa.clicked.connect(self.clickBotonEditar)
-        self.button_guardar.clicked.connect(self.controladorMallaInteractiva.actualizarDatosActuales)
+        self.button_guardar.clicked.connect(self.clickBotonGuardar)
         self.codigoAsignaturaSeleccionada = None
         self.codigoAsignaturaEdicion = None
         self.resultados = {}
         self.botones = {}
         self.requisitos_seleccionado = []
         self.botones_deshabilitados = []
+        self.editandoEstadistica = False
 
     def mostrarAlerta(self,titulo,texto):
         QMessageBox.information(self, titulo, texto)
@@ -62,6 +62,9 @@ class VistaMalla(QMainWindow):
 
         self.seleccionado = self.button_invisible
         self.button_invisible.setVisible(False)
+        
+        self.button_estimar_1.setEnabled(False)
+        self.button_estimar_2.setEnabled(False)
 
     def setTitulo(self):
         nombre = self.plan.getNombre()
@@ -153,6 +156,8 @@ class VistaMalla(QMainWindow):
                                 "    background: #FF7A00;\n"
                                 "}")
         self.button_editar_pa.setVisible(True)
+        self.button_estimar_1.setEnabled(True)
+        self.button_estimar_2.setEnabled(True)
         if(codigoAsignatura == self.codigoAsignaturaSeleccionada):
             return
         if codigoAsignatura in self.resultados:
@@ -244,6 +249,7 @@ class VistaMalla(QMainWindow):
         return self.codigoAsignaturaEdicion
 
     def clickBotonEditar(self):
+        self.habilitarEdicion()
         self.button_editar_pa.setVisible(False)
         self.button_guardar.setVisible(True)
         self.codigoAsignaturaEdicion = self.codigoAsignaturaSeleccionada
@@ -251,6 +257,10 @@ class VistaMalla(QMainWindow):
         self.input_cuposTeoria.setEnabled(True)
         self.input_inscritosLaboratorio.setEnabled(True)
         self.input_cuposLaboratorio.setEnabled(True)
+        
+    def clickBotonGuardar(self):
+        self.deshabilitarEdicion()
+        self.controladorMallaInteractiva.actualizarDatosActuales()
 
     def alternarBotones(self):
         self.button_guardar.setVisible(False)
@@ -286,3 +296,27 @@ class VistaMalla(QMainWindow):
                         boton.setStyleSheet(".QPushButton {\n"
                                     "    background: #083C87;\n"
                                     "}")
+                        
+    def habilitarEdicion(self):
+        self.editandoEstadistica = True
+
+        for nivel in self.botones:
+            for boton in self.botones[nivel]:
+                boton.setEnabled(False)
+
+        self.button_estimar_1.setEnabled(False)
+        self.button_estimar_2.setEnabled(False)
+
+    def deshabilitarEdicion(self):
+        self.editandoEstadistica = False
+
+        for nivel in self.botones:
+            for boton in self.botones[nivel]:
+                if boton not in self.botones_deshabilitados:
+                    boton.setEnabled(True)
+
+        self.button_estimar_1.setEnabled(True)
+        self.button_estimar_2.setEnabled(True)
+
+    def edicionActiva(self):
+        return self.editandoEstadistica

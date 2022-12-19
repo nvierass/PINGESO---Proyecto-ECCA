@@ -236,6 +236,22 @@
          <height>617</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">.QPushButton {
+	color: white;
+	background: #FF7A00;
+	border-radius: 5px;
+	width: 50px;
+}
+
+.QPushButton:hover {
+	background: #083C87;
+}
+
+.QPushButton:pressed {
+	background: #E6E6E6;
+}</string>
+       </property>
        <widget class="QWidget" name="gridLayoutWidget">
         <property name="geometry">
          <rect>

@@ -273,29 +273,30 @@ class VistaMalla(QMainWindow):
 
     def resaltarRequisitos(self, asignatura):
         # Se quita el resalte anteriormente dado a los botones
-        for boton in self.requisitos_seleccionado:
-            if boton != self.seleccionado:
-                boton.setStyleSheet("")
-            if boton in self.botones_deshabilitados:
-                boton.setStyleSheet("background-color: #c1c1c0")
-        self.requisitos_seleccionado = []
-        # Se resaltan los botones requisitos
-        botones = self.botones
-        requisitos_por_nivel = asignatura.getAsignaturasRequisitos()
-        for nivel in requisitos_por_nivel:
-            for boton in botones[nivel]:
-                codigo = int(boton.objectName())
-                if codigo in requisitos_por_nivel[nivel]:
-                    self.requisitos_seleccionado.append(boton)
-                    if boton not in self.botones_deshabilitados:
-                        boton.setStyleSheet(".QPushButton {\n"
-                                    "    color: white;\n"
-                                    "    background: #083C87;\n"
-                                    "}")
-                    else:
-                        boton.setStyleSheet(".QPushButton {\n"
-                                    "    background: #083C87;\n"
-                                    "}")
+        if self.requisitos_seleccionado != []: # Si la asignatura tiene requisitos
+            for boton in self.requisitos_seleccionado:
+                if boton != self.seleccionado:
+                    boton.setStyleSheet("")
+                if boton in self.botones_deshabilitados:
+                    boton.setStyleSheet("background-color: #c1c1c0")
+            self.requisitos_seleccionado = []
+            # Se resaltan los botones requisitos
+            botones = self.botones
+            requisitos_por_nivel = asignatura.getAsignaturasRequisitos()
+            for nivel in requisitos_por_nivel:
+                for boton in botones[nivel]:
+                    codigo = int(boton.objectName())
+                    if codigo in requisitos_por_nivel[nivel]:
+                        self.requisitos_seleccionado.append(boton)
+                        if boton not in self.botones_deshabilitados:
+                            boton.setStyleSheet(".QPushButton {\n"
+                                        "    color: white;\n"
+                                        "    background: #083C87;\n"
+                                        "}")
+                        else:
+                            boton.setStyleSheet(".QPushButton {\n"
+                                        "    background: #083C87;\n"
+                                        "}")
                         
     def habilitarEdicion(self):
         self.editandoEstadistica = True

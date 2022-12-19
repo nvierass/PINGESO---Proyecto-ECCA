@@ -57,6 +57,7 @@ class VistaGestionEstadisticas(QMainWindow):
     def agregarEstadisticas(self, estadisticasAsignatura):
         self.boton_agregar_estadistica.setVisible(True)
         self.cantidadEstadisticas = len(estadisticasAsignatura)
+        indexFila = 1
         self.referenciasFilas = {}
         indexFila = 1
         for estadistica in estadisticasAsignatura:
@@ -196,24 +197,10 @@ class VistaGestionEstadisticas(QMainWindow):
 
     def limpiarGrid(self):
         grid = self.grid_estadisticas
-        cantidadFilasActual = self.cantidadEstadisticas
-        cantidadNueva = 0
-        if cantidadFilasActual == 0:
-            return 
-        while cantidadFilasActual > 0:
-            self.eliminarFila(cantidadFilasActual)
-            cantidadFilasActual -= 1
-        self.cantidadEstadisticas = 0
-
-    def eliminarFila(self, fila):
-        grid = self.grid_estadisticas
-        for columna in range(0,13):
-            item = grid.itemAtPosition(fila, columna)
-            if item != None :
-                widget = item.widget()
-                if widget != None:
-                    grid.removeWidget(widget)
-                    widget.deleteLater()
+        for i in reversed(range(grid.count())):
+            if grid.count() == 11:
+                return
+            grid.itemAt(i).widget().setParent(None)
 
     def habilitarEdicion(self, fila):
         self.comboBoxAsignaturas.setEnabled(False)
@@ -276,7 +263,7 @@ class VistaGestionEstadisticas(QMainWindow):
         datos = []
         for i in range(0,11):
             datos.append(referenciaInputs[i].text())
-        return datos.copy()
+        return datos
 
     def obtenerEstadisticaRegistro(self):
         datos = []
@@ -354,8 +341,7 @@ class VistaGestionEstadisticas(QMainWindow):
         self.grid_estadisticas.addWidget(button_cancelar_ingreso, indexFila, 12)
         referencias.append(button_cancelar_ingreso)
 
-        self.referenciaRegistro = referencias.copy()
-
+        self.referenciaRegistro = referencias()
 
     def eliminarFilaRegistro(self):
         grid = self.grid_estadisticas

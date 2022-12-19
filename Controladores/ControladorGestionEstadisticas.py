@@ -121,9 +121,11 @@ class ControladorGestionEstadisticas():
         if actualizacionExitosa:
             self.vistaGestionEstadisticas.mostrarAlerta("Exito", "La estadística se ha actualizado correctamente.")
             self.estadisticas[codigo][index] = estadisticaActualizada
+            self.actualizarTabla()
             return
-        self.vistaGestionEstadisticas.mostrarAlerta("Error", "La estadística no se ha actualizado correctamente.")
-        self.vistaGestionEstadisticas.restaurarEstadistica(fila, estadisticaAnterior)
+        else:
+            self.vistaGestionEstadisticas.mostrarAlerta("Error", "La estadística no se ha actualizado correctamente.")
+            self.actualizarTabla()
 
     def botonGuardarNuevaClicked(self):
         [codigo, nombre] = self.vistaGestionEstadisticas.getCodigoNombreSeleccionado()

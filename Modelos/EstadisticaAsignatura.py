@@ -69,6 +69,8 @@ class EstadisticaAsignatura:
 
     def tipoCoordinacion(self, coordinacion):
         if isinstance(coordinacion,str):
+            if coordinacion == "":
+                return None
             if coordinacion[0] == 'L':
                 return "Laboratorio"
             else:

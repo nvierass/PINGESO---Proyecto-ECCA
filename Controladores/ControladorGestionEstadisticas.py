@@ -188,7 +188,7 @@ class ControladorGestionEstadisticas():
 
     def iniciarIngreso(self):
         if self.vistaGestionEstadisticas.edicionActiva():
-            self.vistaGestionEstadisticas.mostrarAlerta("Advertencia", "Debe finalizar la edición actual antes de agregas nuevas estadísticas.")
+            self.vistaGestionEstadisticas.mostrarAlerta("Advertencia", "Debe finalizar la edición actual antes de agregar nuevas estadísticas.")
             return
         self.vistaGestionEstadisticas.agregarFilaIngreso()
 

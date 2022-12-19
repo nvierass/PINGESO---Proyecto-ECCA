@@ -341,7 +341,7 @@ class VistaGestionEstadisticas(QMainWindow):
         self.grid_estadisticas.addWidget(button_cancelar_ingreso, indexFila, 12)
         referencias.append(button_cancelar_ingreso)
 
-        self.referenciaRegistro = referencias()
+        self.referenciaRegistro = referencias
 
     def eliminarFilaRegistro(self):
         grid = self.grid_estadisticas

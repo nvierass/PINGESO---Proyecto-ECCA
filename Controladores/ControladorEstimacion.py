@@ -24,7 +24,7 @@ class ControladorEstimacion():
             self.resultadosEstimacion = {}
 
     def definirRequisitoPrioritario(self, codigo, asignatura, datosPeriodoBase, datosHistoricos):
-        requisitoEncontrado, requisito = self.aplicarCriterioPrioritarioNivel(codigo)
+        requisitoEncontrado, requisito = self.aplicarCriterioPrioritarioNivel(asignatura)
         if not requisitoEncontrado:
             requisitosMayorNivel = requisito
             requisitoEncontrado, requisito = self.aplicarCriterioPrioritarioDificultad(requisitosMayorNivel, datosHistoricos)
@@ -34,8 +34,8 @@ class ControladorEstimacion():
         asignatura.setRequisitoPrioritario(requisito)
         return asignatura
 
-    def aplicarCriterioPrioritarioNivel(self, codigo):
-        nivelesRequisitos = self.asignaturas[codigo].getAsignaturasRequisitos()
+    def aplicarCriterioPrioritarioNivel(self, asignatura):
+        nivelesRequisitos = asignatura.getAsignaturasRequisitos()
         if len(nivelesRequisitos) == 0:
             return True, None
         nivelMayor = max(nivelesRequisitos)

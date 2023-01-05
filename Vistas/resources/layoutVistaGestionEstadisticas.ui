@@ -542,7 +542,7 @@
 }</string>
       </property>
       <property name="text">
-       <string>Agregar nueva estadistica</string>
+       <string>Agregar nuevas estadísticas</string>
       </property>
      </widget>
     </item>

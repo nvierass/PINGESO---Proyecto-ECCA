@@ -147,7 +147,6 @@ class VistaMalla(QMainWindow):
             return True
         return False
 
-    
     def mostrarDatosAsignatura(self, codigoAsignatura, boton):
         self.seleccionado.setStyleSheet("")
         self.seleccionado = boton
@@ -262,7 +261,7 @@ class VistaMalla(QMainWindow):
         self.deshabilitarEdicion()
         self.controladorMallaInteractiva.actualizarDatosActuales()
 
-    def alternarBotones(self):
+    def restaurarBotones(self):
         self.button_guardar.setVisible(False)
         self.button_editar_pa.setVisible(True)
         self.input_inscritosTeoria.setEnabled(False)
@@ -270,7 +269,6 @@ class VistaMalla(QMainWindow):
         self.input_inscritosLaboratorio.setEnabled(False)
         self.input_cuposLaboratorio.setEnabled(False)
         
-
     def resaltarRequisitos(self, asignatura):
         # Se quita el resalte anteriormente dado a los botones
         if self.requisitos_seleccionado != []: # Si la asignatura tiene requisitos

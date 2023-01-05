@@ -22,6 +22,7 @@ class DatabaseContext():
     def disconnect(self):
         try:
             self.conn.close()
+            print("Conexión finalizada")
         except:
             print("Error al cerrar la conexión a la base de datos")
 

@@ -21,6 +21,16 @@ class VistaGestionEstadisticas(QMainWindow):
         self.codigoAsignaturaEdicion = None
         self.boton_agregar_estadistica.setVisible(False)
 
+    def setCodigo(self, codigo):
+        self.codigo = codigo
+        self.labelCodigo.setText(str(codigo))
+        
+    def setNombre(self, nombre):
+        self.labelNombre.setText(nombre)
+
+    def getCodigo(self):
+        return self.codigo
+
     def getCodigoAsignaturaEdicion(self):
         return self.codigoAsignaturaEdicion  
 
@@ -30,16 +40,6 @@ class VistaGestionEstadisticas(QMainWindow):
         textoSeleccionado = self.comboBoxAsignaturas.currentText()
         [codigo, nombre] = textoSeleccionado.split(" - ")
         return int(codigo), nombre
-
-    def setCodigo(self, codigo):
-        self.codigo = codigo
-        self.labelCodigo.setText(str(codigo))
-
-    def getCodigo(self):
-        return self.codigo
-
-    def setNombre(self, nombre):
-        self.labelNombre.setText(nombre)
 
     def mostrarAlerta(self,titulo,texto):
         QMessageBox.information(self, titulo, texto)

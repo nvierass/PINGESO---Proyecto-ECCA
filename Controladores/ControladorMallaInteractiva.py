@@ -93,7 +93,7 @@ class ControladorMallaInteractiva():
 
         self.vistaMalla.datosPeriodoActual = self.datosPeriodoActual
         self.vistaMalla.asignaturas = self.asignaturas
-        self.vistaMalla.alternarBotones()
+        self.vistaMalla.restaurarBotones()
 
     def cantidadValida(self, cantidad, min, max):
         if not cantidad.isnumeric():

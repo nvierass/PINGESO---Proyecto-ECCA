@@ -52,6 +52,5 @@ class VistaEstimacion(QMainWindow):
     def getPonderacionValoresPeriodoAnterior(self):
         return self.input_datos_periodo_anterior.text()
         
-
     def mostrarAlerta(self,titulo,texto):
         QMessageBox.information(self, titulo, texto)

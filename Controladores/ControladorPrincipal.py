@@ -13,9 +13,9 @@ from DatabaseDriver.DatabaseContext import DatabaseContext
 
 class ControladorPrincipal():
 
-    def __init__(self, GUI):
+    def __init__(self, GUI, databaseContext):
         self.GUI = GUI
-        self.databaseContext = DatabaseContext()
+        self.databaseContext = databaseContext
         self.vistaPrincipal = VistaPrincipal(self)
         if self.databaseContext.conn == None:
             self.vistaPrincipal.mostrarAlerta("Error","No se ha establecido una conexión a la base de datos.\nFinalizando ejecución.")
@@ -56,8 +56,8 @@ class ControladorPrincipal():
         self.GUI.addWidget(self.vistaActualizarPeriodo)
         self.GUI.setCurrentIndex(self.GUI.currentIndex()+1)
 
-    def goMallaInteractiva(self, PlanSeleccionado,):
-        self.controladorMallaInteractiva = ControladorMallaInteractiva(self, self.databaseContext, self.GUI, PlanSeleccionado,self.ano, self.semestre)
+    def goMallaInteractiva(self, planSeleccionado):
+        self.controladorMallaInteractiva = ControladorMallaInteractiva(self, self.databaseContext, self.GUI, planSeleccionado,self.ano, self.semestre)
 
     def goGestionEstadisticas(self):
         self.controladorGestionEstadisticas = ControladorGestionEstadisticas(self, self.databaseContext, self.GUI)

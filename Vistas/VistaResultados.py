@@ -44,7 +44,6 @@ class VistaResultados(QMainWindow):
                 self.tableWidget.setItem(indexFila, 6, QtWidgets.QTableWidgetItem(resultado["observaciones"]))
                 indexFila += 1
         
-
     def setTitulo(self, titulo):
         self.titulo = titulo
         self.label_titulo.setText(titulo)

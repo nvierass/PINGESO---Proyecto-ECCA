@@ -47,12 +47,6 @@ class ControladorGestionEstadisticas():
             self.vistaGestionEstadisticas.mostrarAlerta("Advertencia", "No existen estadísticas curriculares de la asignatura seleccionada.")
         self.vistaGestionEstadisticas.agregarEstadisticas(estadisticas)
 
-    def setNombre(self, nombre):
-        self.labelNombre.setText(nombre)
-
-    def setCodigo(self, codigo):
-        self.labelCodigo.setText(str(codigo))
-
     def volverContextoPrincipal(self):
         self.controladorPrincipal.mostrarVistaPrincipal()
     

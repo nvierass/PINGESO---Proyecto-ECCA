@@ -71,7 +71,7 @@ class ControladorEstimacion():
                 if alumnosInscritos <= menorCantidadAlumnos:
                     requisitosCandidatos = [requisitoCandidato]
                     menorCantidadAlumnos = alumnosInscritos
-        if len(requisitosCandidatos) == 1:
+        if len(requisitosCandidatos) >= 1:
             return True, requisitosCandidatos[0]
         return True, None
         
@@ -526,7 +526,7 @@ class ControladorEstimacion():
         if codigo == None:
             return False
         codigosMBI = [13300, 13303, 13305, 13307]
-        if codigo < 13000:
+        if codigo < 13000 or codigo > 13999:
             return True
         if codigo in codigosMBI:
             return True

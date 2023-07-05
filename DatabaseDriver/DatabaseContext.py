@@ -11,8 +11,7 @@ class DatabaseContext():
 
     def connection(self):
         try:
-            conn = pc.connect(database="ECCA",host="157.230.5.30",user="postgres",password="postgres",port=5432)
-            #conn = pc.connect(database="ECCA",host="localhost",user="postgres",password="postgres",port=5432)
+            conn = pc.connect(database="",host="0.0.0.0",user="",password="",port=0000)
             cursor = conn.cursor()
             return conn,cursor
         except:
